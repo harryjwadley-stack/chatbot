@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.after_request
 def add_cors_headers(resp):
     # Allow your GitHub Pages origin (replace username!)
-    resp.headers["Access-Control-Allow-Origin"] = "https://<harryjwadley-stack>.github.io"
+    resp.headers["Access-Control-Allow-Origin"] = "https://harryjwadley-stack.github.io"
     resp.headers["Vary"] = "Origin"
     resp.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS"
     resp.headers["Access-Control-Allow-Headers"] = "Content-Type"
