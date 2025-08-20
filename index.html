@@ -1,18 +1,30 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>My First GitHub Pages Site</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PA API Demo</title>
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <p>This is my first site on GitHub Pages.</p>
-    <p>TESTING.</p>
+  <h1>PythonAnywhere API Demo</h1>
 
-    <button id="clickMe">Click Me</button>
-    <p id="message"></p>
+  <section>
+    <h2>GET example</h2>
+    <button id="getBtn">Get random number</button>
+    <p id="getOut"></p>
+  </section>
 
-    <script src="script.js"></script>
+  <section>
+    <h2>POST example</h2>
+    <form id="postForm">
+      <label>Enter text:
+        <input id="userText" name="userText" required />
+      </label>
+      <button type="submit">Send</button>
+    </form>
+    <p id="postOut"></p>
+  </section>
+
+  <script src="script.js"></script>
 </body>
 </html>
