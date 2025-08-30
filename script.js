@@ -13,7 +13,7 @@ document.getElementById("getBtn").addEventListener("click", async () => {
   const out = document.getElementById("getOut");
   out.textContent = "Loading…";
   try {
-    const res = await fetchWithTimeout(`${API_BASE}/api/random`, { method: "GET" });
+    const res = await fetchWithTimeout(`${API_BASE}`, { method: "GET" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     out.textContent = `Number: ${data.number}`;
