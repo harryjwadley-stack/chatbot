@@ -38,3 +38,9 @@ button {
 button:hover {
     background-color: #DEB887;
 }
+
+#userText {
+  width: 300px;   /* makes it shorter, adjust as you like */
+  padding: 6px;   /* adds space inside the box */
+  font-size: 14px; /* makes text a nice size */
+}
