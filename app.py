@@ -1,29 +1,27 @@
-# app.py
-from flask import Flask, jsonify, request, make_response
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 import random
 
 app = Flask(__name__)
+CORS(app, resources={
+    r"/api/*": {
+        "origins": [
+            "https://harryjwadley-stack.github.io",
+            # "https://your-custom-domain.com"  # add if you have one
+        ]
+    }
+})
 
-@app.after_request
-def add_cors_headers(resp):
-    # Allow your GitHub Pages origin (replace username!)
-    resp.headers["Access-Control-Allow-Origin"] = "https://harryjwadley-stack.github.io"
-    resp.headers["Vary"] = "Origin"
-    resp.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS"
-    resp.headers["Access-Control-Allow-Headers"] = "Content-Type"
-    return resp
+@app.get("/")
+def health():
+    return "API is running. Try /api/random"
 
-# Optional: handle preflight explicitly (for POST/JSON)
-@app.route("/api/random", methods=["GET", "OPTIONS"])
+@app.get("/api/random")
 def random_number():
-    if request.method == "OPTIONS":
-        return ("", 204)   # Preflight OK
-    return jsonify({"number": random.randint(0, 100)})
+    return jsonify({"value": random.randint(0, 100)})
 
-@app.route("/api/process", methods=["POST", "OPTIONS"])
+@app.post("/api/process")
 def process():
-    if request.method == "OPTIONS":
-        return ("", 204)
-    data = request.get_json(force=True)  # expects {"user_text": "..."}
-    text = (data or {}).get("user_text", "")
+    data = request.get_json(silent=True) or {}
+    text = data.get("user_text", "")
     return jsonify({"ok": True, "result": text.upper()})
