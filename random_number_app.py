@@ -23,3 +23,18 @@ def random_number():
     if request.method == "OPTIONS":
         return ("", 204)
     return jsonify({"value": random.randint(0, 100)})
+
+@app.route("/api/calculate", methods=["POST"])
+def calculate():
+    data = request.get_json(silent=True) or {}
+    if "value" not in data:
+        return jsonify({"error": "Missing 'value'"}), 400
+    try:
+        x = float(data["value"])
+    except (TypeError, ValueError):
+        return jsonify({"error": "'value' must be numeric"}), 400
+
+    # Replace with your real calculation:
+    result = x * x + 10
+
+    return jsonify({"input": x, "result": result})

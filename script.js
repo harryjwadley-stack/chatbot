@@ -55,7 +55,7 @@ async function safeJson(res) {
 
 
 /* =======================
-   3) CORE ACTIONS
+   3a) CORE ACTIONS
    ======================= */
 
 async function getRandomNumber(outEl) {
@@ -84,6 +84,57 @@ async function getRandomNumber(outEl) {
   }
 }
 
+/* =======================
+   3b) CORE ACTIONS – POST
+   ======================= */
+
+async function postCalculation(outEl, rawValue) {
+  // Basic validation/coercion
+  const value = Number(rawValue);
+  if (!Number.isFinite(value)) {
+    outEl.textContent = "Please enter a valid number.";
+    return;
+  }
+
+  outEl.textContent = "Calculating…";
+
+  // Build the calculate URL based on your existing API constant.
+  // If API is like "https://.../api/random", convert to ".../api/calculate".
+  let calcUrl;
+  try {
+    // Handles both trailing slash and no slash
+    calcUrl = API.replace(/\/api\/random\/?$/i, "/api/calculate");
+  } catch {
+    // Fallback if API isn't the random endpoint
+    calcUrl = API.endsWith("/") ? API + "api/calculate" : API + "/api/calculate";
+  }
+
+  try {
+    const res = await fetchWithTimeout(calcUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ value })
+    });
+
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      throw new Error(`HTTP ${res.status} ${res.statusText}${body ? " — " + body.slice(0, 200) : ""}`);
+    }
+
+    // Expecting e.g. { "input": <number>, "result": <number> }
+    const data = await safeJson(res);
+
+    if (!("result" in data)) {
+      throw new Error(`Missing "result" in response. Got: ${JSON.stringify(data).slice(0, 200)}`);
+    }
+
+    outEl.textContent = `Result for ${"input" in data ? data.input : value}: ${data.result}`;
+    if (DEBUG) console.log("[success] calc =", data);
+  } catch (err) {
+    showError(outEl, err, "POST /api/calculate");
+  }
+}
+
 
 /* =======================
    4) WIRE UP THE UI
@@ -107,6 +158,13 @@ if (document.readyState === "loading") {
 } else {
   bindUI();
 }
+
+document.getElementById("calcBtn")?.addEventListener("click", () => {
+  const inputEl = document.getElementById("userNumber");
+  const outEl   = document.getElementById("calcOut");
+  postCalculation(outEl, inputEl.value);
+});
+
 
 
 /* =======================
