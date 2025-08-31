@@ -14,7 +14,7 @@ body {
 
 /* Header styling */
 h1 {
-    color: #7FFFD4;
+    color: #00FFFF;
     margin-top: 50px;
 }
 
@@ -25,7 +25,7 @@ p {
 
 /* Button styling */
 button {
-    background-color: #7FFFD4;
+    background-color: #00FFFF;
     color: #F0FFFF;
     border: none;
     padding: 10px 15px;
