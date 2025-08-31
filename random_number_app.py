@@ -4,11 +4,10 @@ import random
 
 app = Flask(__name__)
 
-GHPAGES_ORIGIN = "https://harryjwadley-stack.github.io"  # EXACT string from location.origin
+GHPAGES_ORIGIN = 'https://harryjwadley-stack.github.io'  # EXACT value of location.origin
 
 @app.after_request
-def add_cors_headers(resp):
-    # Always add CORS for your site (covers 200, 404, 500, etc.)
+def add_cors(resp):
     resp.headers["Access-Control-Allow-Origin"] = GHPAGES_ORIGIN
     resp.headers["Vary"] = "Origin"
     resp.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS"
