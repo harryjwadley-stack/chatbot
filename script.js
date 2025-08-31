@@ -13,7 +13,7 @@
    ======================= */
 
 // Use the **site root** here (not the endpoint)
-const API_BASE = "https://harrywadley6.pythonanywhere.com";
+const API_BASE = "https://harrywadley6.pythonanywhere.com/api/random";
 
 // Endpoint paths (keep simple GET to avoid preflight)
 const ENDPOINT_RANDOM = "/api/random";
