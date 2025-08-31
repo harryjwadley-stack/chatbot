@@ -4,6 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>PA API Demo</title>
+  <!-- Optional: stop favicon 404s -->
+  <link rel="icon" href="data:,">
 </head>
 <body>
   <h1>PythonAnywhere API Demo</h1>
@@ -25,6 +27,7 @@
     <p id="postOut"></p>
   </section>
 
-  <script src="script.js"></script>
+  <!-- Load your script last so DOM elements exist, add cache-buster -->
+  <script src="script.js?v=8"></script>
 </body>
 </html>
