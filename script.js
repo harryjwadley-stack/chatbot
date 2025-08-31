@@ -128,7 +128,7 @@ async function postCalculation(outEl, rawValue) {
       throw new Error(`Missing "result" in response. Got: ${JSON.stringify(data).slice(0, 200)}`);
     }
 
-    outEl.textContent = `Result for ${"input" in data ? data.input : value}: ${data.result}`;
+    outEl.textContent = `Result: ${data.result}`;
     if (DEBUG) console.log("[success] calc =", data);
   } catch (err) {
     showError(outEl, err, "POST /api/calculate");
