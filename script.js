@@ -13,10 +13,7 @@
    ======================= */
 
 // Use the **site root** here (not the endpoint)
-const API_BASE = "https://harrywadley6.pythonanywhere.com/api/random";
-
-// Endpoint paths (keep simple GET to avoid preflight)
-const ENDPOINT_RANDOM = "/api/random";
+const API = "https://harrywadley6.pythonanywhere.com/api/random";
 
 /* Timeout (ms) for requests */
 const FETCH_TIMEOUT_MS = 10000;
@@ -63,7 +60,7 @@ async function safeJson(res) {
 
 async function getRandomNumber(outEl) {
   outEl.textContent = "Loading…";
-  const url = `${API_BASE}${ENDPOINT_RANDOM}`;
+  const url = API;
 
   try {
     const res = await fetchWithTimeout(url, { method: "GET" });
