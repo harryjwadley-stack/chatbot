@@ -1,0 +1,936 @@
+{
+  "name": "single_turn_chat_pairs_dataset",
+  "created": "2025-09-06T20:16:51.576030Z",
+  "license": "CC-BY-4.0 (synthetic content)",
+  "schema": {
+    "input": "string",
+    "output": "string"
+  },
+  "num_items": 231,
+  "data": [
+    {
+      "input": "What is 92 times 62?",
+      "output": "5704."
+    },
+    {
+      "input": "What is the capital of Russia?",
+      "output": "The capital of Russia is Moscow."
+    },
+    {
+      "input": "What is 76 plus 34?",
+      "output": "110."
+    },
+    {
+      "input": "What is 13 times 25?",
+      "output": "325."
+    },
+    {
+      "input": "What is database?",
+      "output": "A database is an organized collection of data, typically accessed and managed via a DBMS."
+    },
+    {
+      "input": "What is 76 plus 72?",
+      "output": "148."
+    },
+    {
+      "input": "What is the capital of China?",
+      "output": "The capital of China is Beijing."
+    },
+    {
+      "input": "How do I create an array in JavaScript?",
+      "output": "Use brackets: const arr = [1, 2, 3];"
+    },
+    {
+      "input": "How do I define a function in Python?",
+      "output": "Use def: \n\ndef greet(name):\n    return f\"Hello, {name}!\""
+    },
+    {
+      "input": "What is 67 minus 44?",
+      "output": "23."
+    },
+    {
+      "input": "What is 11 minus 12?",
+      "output": "-1."
+    },
+    {
+      "input": "Good evening",
+      "output": "Hello! What can I do for you?"
+    },
+    {
+      "input": "Define neuron.",
+      "output": "Here’s a concise definition of neuron: a nerve cell that transmits information via electrical and chemical signals"
+    },
+    {
+      "input": "What is the capital of Sweden?",
+      "output": "The capital of Sweden is Stockholm."
+    },
+    {
+      "input": "What is 11 minus 63?",
+      "output": "-52."
+    },
+    {
+      "input": "What is the capital of Finland?",
+      "output": "The capital of Finland is Helsinki."
+    },
+    {
+      "input": "What is 20 plus 70?",
+      "output": "90."
+    },
+    {
+      "input": "What is the capital of Ghana?",
+      "output": "The capital of Ghana is Accra."
+    },
+    {
+      "input": "Yo",
+      "output": "Good morning! How can I assist?"
+    },
+    {
+      "input": "What is 87 plus 88?",
+      "output": "175."
+    },
+    {
+      "input": "What is the capital of Czechia?",
+      "output": "The capital of Czechia is Prague."
+    },
+    {
+      "input": "Who wrote '1984'?",
+      "output": "George Orwell wrote '1984'."
+    },
+    {
+      "input": "What is 63 times 65?",
+      "output": "4095."
+    },
+    {
+      "input": "What is 74 times 60?",
+      "output": "4440."
+    },
+    {
+      "input": "How do I print in JavaScript?",
+      "output": "Use console.log(\"Hello\"); in Node/web console."
+    },
+    {
+      "input": "What is the capital of Germany?",
+      "output": "The capital of Germany is Berlin."
+    },
+    {
+      "input": "What is the capital of Saudi Arabia?",
+      "output": "The capital of Saudi Arabia is Riyadh."
+    },
+    {
+      "input": "Translate 'hello' into Italian.",
+      "output": "“Hello” in Italian is “ciao” (informal) or “salve.”"
+    },
+    {
+      "input": "What is the capital of Romania?",
+      "output": "The capital of Romania is Bucharest."
+    },
+    {
+      "input": "What is the capital of Turkey?",
+      "output": "The capital of Turkey is Ankara."
+    },
+    {
+      "input": "What is the capital of Mexico?",
+      "output": "The capital of Mexico is Mexico City."
+    },
+    {
+      "input": "Explain neuron simply.",
+      "output": "neuron in simple terms: a nerve cell that transmits information via electrical and chemical signals"
+    },
+    {
+      "input": "What is the capital of Italy?",
+      "output": "The capital of Italy is Rome."
+    },
+    {
+      "input": "Translate 'good night' into Portuguese.",
+      "output": "“Good night” in Portuguese is “boa noite.”"
+    },
+    {
+      "input": "What is the capital of Ireland?",
+      "output": "The capital of Ireland is Dublin."
+    },
+    {
+      "input": "What is 98 times 66?",
+      "output": "6468."
+    },
+    {
+      "input": "What is 13 minus 91?",
+      "output": "-78."
+    },
+    {
+      "input": "What is 29 plus 20?",
+      "output": "49."
+    },
+    {
+      "input": "What is 62 minus 7?",
+      "output": "55."
+    },
+    {
+      "input": "Define gravity.",
+      "output": "Here’s a concise definition of gravity: the attractive force between masses"
+    },
+    {
+      "input": "What is 63 minus 25?",
+      "output": "38."
+    },
+    {
+      "input": "What is the capital of Peru?",
+      "output": "The capital of Peru is Lima."
+    },
+    {
+      "input": "Explain database index simply.",
+      "output": "database index in simple terms: a data structure that speeds up data retrieval operations"
+    },
+    {
+      "input": "What is 15 minus 5?",
+      "output": "10."
+    },
+    {
+      "input": "What is the capital of New Zealand?",
+      "output": "The capital of New Zealand is Wellington."
+    },
+    {
+      "input": "What is the capital of Bangladesh?",
+      "output": "The capital of Bangladesh is Dhaka."
+    },
+    {
+      "input": "What is the capital of Egypt?",
+      "output": "The capital of Egypt is Cairo."
+    },
+    {
+      "input": "What is the capital of Vietnam?",
+      "output": "The capital of Vietnam is Hanoi."
+    },
+    {
+      "input": "What is 74 plus 31?",
+      "output": "105."
+    },
+    {
+      "input": "Good morning",
+      "output": "Hello! What can I do for you?"
+    },
+    {
+      "input": "What is 40 times 89?",
+      "output": "3560."
+    },
+    {
+      "input": "How are you?",
+      "output": "Hello! What can I do for you?"
+    },
+    {
+      "input": "What is the capital of Poland?",
+      "output": "The capital of Poland is Warsaw."
+    },
+    {
+      "input": "What is 6 plus 87?",
+      "output": "93."
+    },
+    {
+      "input": "What is the capital of Ethiopia?",
+      "output": "The capital of Ethiopia is Addis Ababa."
+    },
+    {
+      "input": "What is 24 plus 36?",
+      "output": "60."
+    },
+    {
+      "input": "Hello",
+      "output": "Hello! What can I do for you?"
+    },
+    {
+      "input": "What is 30 times 46?",
+      "output": "1380."
+    },
+    {
+      "input": "What is 80 plus 61?",
+      "output": "141."
+    },
+    {
+      "input": "What is 89 minus 76?",
+      "output": "13."
+    },
+    {
+      "input": "Explain gravity simply.",
+      "output": "gravity in simple terms: the attractive force between masses"
+    },
+    {
+      "input": "What is 46 times 15?",
+      "output": "690."
+    },
+    {
+      "input": "What is H2O commonly called?",
+      "output": "H2O is water."
+    },
+    {
+      "input": "What is 71 times 10?",
+      "output": "710."
+    },
+    {
+      "input": "What is 64 times 50?",
+      "output": "3200."
+    },
+    {
+      "input": "What is the capital of Brazil?",
+      "output": "The capital of Brazil is Brasília."
+    },
+    {
+      "input": "Explain photosynthesis simply.",
+      "output": "photosynthesis in simple terms: plants converting light into chemical energy (glucose), releasing oxygen"
+    },
+    {
+      "input": "Explain algorithm simply.",
+      "output": "algorithm in simple terms: a finite, step-by-step procedure to solve a problem"
+    },
+    {
+      "input": "What is 28 minus 88?",
+      "output": "-60."
+    },
+    {
+      "input": "What is 33 minus 34?",
+      "output": "-1."
+    },
+    {
+      "input": "What is 79 minus 28?",
+      "output": "51."
+    },
+    {
+      "input": "What gas do plants mostly absorb for photosynthesis?",
+      "output": "Carbon dioxide."
+    },
+    {
+      "input": "What is the capital of Hungary?",
+      "output": "The capital of Hungary is Budapest."
+    },
+    {
+      "input": "What is 81 plus 81?",
+      "output": "162."
+    },
+    {
+      "input": "What is 63 minus 47?",
+      "output": "16."
+    },
+    {
+      "input": "What is the capital of India?",
+      "output": "The capital of India is New Delhi."
+    },
+    {
+      "input": "What is algorithm?",
+      "output": "An algorithm is a step-by-step procedure for solving a problem or performing a computation."
+    },
+    {
+      "input": "What is 38 minus 77?",
+      "output": "-39."
+    },
+    {
+      "input": "What is 17 plus 69?",
+      "output": "86."
+    },
+    {
+      "input": "What is the capital of Algeria?",
+      "output": "The capital of Algeria is Algiers."
+    },
+    {
+      "input": "What is 99 times 69?",
+      "output": "6831."
+    },
+    {
+      "input": "What is 28 times 23?",
+      "output": "644."
+    },
+    {
+      "input": "What is the capital of Bulgaria?",
+      "output": "The capital of Bulgaria is Sofia."
+    },
+    {
+      "input": "What is 81 plus 23?",
+      "output": "104."
+    },
+    {
+      "input": "What is 43 plus 23?",
+      "output": "66."
+    },
+    {
+      "input": "What is the capital of Norway?",
+      "output": "The capital of Norway is Oslo."
+    },
+    {
+      "input": "What is 78 minus 23?",
+      "output": "55."
+    },
+    {
+      "input": "What is API?",
+      "output": "An API (Application Programming Interface) lets software components communicate using defined requests and responses."
+    },
+    {
+      "input": "What is 36 times 21?",
+      "output": "756."
+    },
+    {
+      "input": "What is 94 times 61?",
+      "output": "5734."
+    },
+    {
+      "input": "What is 28 plus 87?",
+      "output": "115."
+    },
+    {
+      "input": "What is the capital of Malaysia?",
+      "output": "The capital of Malaysia is Kuala Lumpur."
+    },
+    {
+      "input": "What is 33 plus 85?",
+      "output": "118."
+    },
+    {
+      "input": "What is the capital of Spain?",
+      "output": "The capital of Spain is Madrid."
+    },
+    {
+      "input": "What is 32 plus 48?",
+      "output": "80."
+    },
+    {
+      "input": "What is the capital of Kuwait?",
+      "output": "The capital of Kuwait is Kuwait City."
+    },
+    {
+      "input": "What is 99 minus 46?",
+      "output": "53."
+    },
+    {
+      "input": "How do I define a function in JavaScript?",
+      "output": "Use function or arrow: const add = (a,b) => a + b;"
+    },
+    {
+      "input": "What is 76 times 44?",
+      "output": "3344."
+    },
+    {
+      "input": "What is 57 plus 67?",
+      "output": "124."
+    },
+    {
+      "input": "Translate 'yes' into Japanese.",
+      "output": "“Yes” in Japanese is “はい (hai).”"
+    },
+    {
+      "input": "What is 82 plus 63?",
+      "output": "145."
+    },
+    {
+      "input": "What is 39 plus 37?",
+      "output": "76."
+    },
+    {
+      "input": "What is 2 plus 44?",
+      "output": "46."
+    },
+    {
+      "input": "What is 60 plus 36?",
+      "output": "96."
+    },
+    {
+      "input": "What is 40 minus 9?",
+      "output": "31."
+    },
+    {
+      "input": "What is the capital of Thailand?",
+      "output": "The capital of Thailand is Bangkok."
+    },
+    {
+      "input": "What is 50 plus 41?",
+      "output": "91."
+    },
+    {
+      "input": "What is 60 minus 7?",
+      "output": "53."
+    },
+    {
+      "input": "What is 11 minus 77?",
+      "output": "-66."
+    },
+    {
+      "input": "What is 29 minus 8?",
+      "output": "21."
+    },
+    {
+      "input": "What is 93 minus 77?",
+      "output": "16."
+    },
+    {
+      "input": "Translate 'please' into German.",
+      "output": "“Please” in German is “bitte.”"
+    },
+    {
+      "input": "What is 7 times 36?",
+      "output": "252."
+    },
+    {
+      "input": "What is the capital of Kenya?",
+      "output": "The capital of Kenya is Nairobi."
+    },
+    {
+      "input": "What is photosynthesis?",
+      "output": "Photosynthesis is the process by which plants convert light energy into chemical energy (glucose), releasing oxygen."
+    },
+    {
+      "input": "What is the capital of Pakistan?",
+      "output": "The capital of Pakistan is Islamabad."
+    },
+    {
+      "input": "What is 46 times 16?",
+      "output": "736."
+    },
+    {
+      "input": "What is 6 times 30?",
+      "output": "180."
+    },
+    {
+      "input": "What is 19 minus 5?",
+      "output": "14."
+    },
+    {
+      "input": "What is 70 minus 21?",
+      "output": "49."
+    },
+    {
+      "input": "What is 25 minus 55?",
+      "output": "-30."
+    },
+    {
+      "input": "What is 90 plus 56?",
+      "output": "146."
+    },
+    {
+      "input": "What is the capital of Japan?",
+      "output": "The capital of Japan is Tokyo."
+    },
+    {
+      "input": "What is 87 minus 71?",
+      "output": "16."
+    },
+    {
+      "input": "What is 37 plus 86?",
+      "output": "123."
+    },
+    {
+      "input": "What is 67 minus 97?",
+      "output": "-30."
+    },
+    {
+      "input": "Define algorithm.",
+      "output": "Here’s a concise definition of algorithm: a finite, step-by-step procedure to solve a problem"
+    },
+    {
+      "input": "What is 40 minus 21?",
+      "output": "19."
+    },
+    {
+      "input": "What is the capital of United Arab Emirates?",
+      "output": "The capital of United Arab Emirates is Abu Dhabi."
+    },
+    {
+      "input": "What is 11 times 70?",
+      "output": "770."
+    },
+    {
+      "input": "What is 89 plus 75?",
+      "output": "164."
+    },
+    {
+      "input": "Hi",
+      "output": "All good here — what’s on your mind?"
+    },
+    {
+      "input": "What is the capital of Argentina?",
+      "output": "The capital of Argentina is Buenos Aires."
+    },
+    {
+      "input": "What is 45 minus 76?",
+      "output": "-31."
+    },
+    {
+      "input": "What is the capital of Colombia?",
+      "output": "The capital of Colombia is Bogotá."
+    },
+    {
+      "input": "What is atom?",
+      "output": "An atom is the smallest unit of ordinary matter that forms a chemical element."
+    },
+    {
+      "input": "What is 37 minus 29?",
+      "output": "8."
+    },
+    {
+      "input": "Translate 'good morning' into Spanish.",
+      "output": "“Good morning” in Spanish is “buenos días.”"
+    },
+    {
+      "input": "How do I create a list in Python?",
+      "output": "Use square brackets, e.g. nums = [1, 2, 3]."
+    },
+    {
+      "input": "What is the capital of Venezuela?",
+      "output": "The capital of Venezuela is Caracas."
+    },
+    {
+      "input": "What is 92 times 60?",
+      "output": "5520."
+    },
+    {
+      "input": "What is 85 minus 78?",
+      "output": "7."
+    },
+    {
+      "input": "Define photosynthesis.",
+      "output": "Here’s a concise definition of photosynthesis: plants converting light into chemical energy (glucose), releasing oxygen"
+    },
+    {
+      "input": "What is the capital of Philippines?",
+      "output": "The capital of Philippines is Manila."
+    },
+    {
+      "input": "Howdy",
+      "output": "Hi! How can I help today?"
+    },
+    {
+      "input": "What is 67 minus 91?",
+      "output": "-24."
+    },
+    {
+      "input": "What is the capital of Greece?",
+      "output": "The capital of Greece is Athens."
+    },
+    {
+      "input": "What is gravity?",
+      "output": "Gravity is the force of attraction that pulls two masses toward each other."
+    },
+    {
+      "input": "What is 83 plus 13?",
+      "output": "96."
+    },
+    {
+      "input": "What is 90 times 23?",
+      "output": "2070."
+    },
+    {
+      "input": "Hey there",
+      "output": "Hi! How can I help today?"
+    },
+    {
+      "input": "What is 37 minus 54?",
+      "output": "-17."
+    },
+    {
+      "input": "What is the capital of Singapore?",
+      "output": "The capital of Singapore is Singapore."
+    },
+    {
+      "input": "How many continents are there?",
+      "output": "Seven."
+    },
+    {
+      "input": "What is the speed of light in vacuum?",
+      "output": "About 299,792,458 meters per second."
+    },
+    {
+      "input": "What is 4 plus 67?",
+      "output": "71."
+    },
+    {
+      "input": "What is machine learning?",
+      "output": "Machine learning is a field of AI where models learn patterns from data to make predictions or decisions."
+    },
+    {
+      "input": "What is 98 minus 98?",
+      "output": "0."
+    },
+    {
+      "input": "What is 8 minus 46?",
+      "output": "-38."
+    },
+    {
+      "input": "What is 64 plus 33?",
+      "output": "97."
+    },
+    {
+      "input": "What is 95 minus 68?",
+      "output": "27."
+    },
+    {
+      "input": "Appreciate it.",
+      "output": "Anytime!"
+    },
+    {
+      "input": "What is the capital of United Kingdom?",
+      "output": "The capital of United Kingdom is London."
+    },
+    {
+      "input": "What is the capital of Morocco?",
+      "output": "The capital of Morocco is Rabat."
+    },
+    {
+      "input": "Define database index.",
+      "output": "Here’s a concise definition of database index: a data structure that speeds up data retrieval operations"
+    },
+    {
+      "input": "What is 43 times 59?",
+      "output": "2537."
+    },
+    {
+      "input": "What is the capital of Switzerland?",
+      "output": "The capital of Switzerland is Bern."
+    },
+    {
+      "input": "What is 24 plus 76?",
+      "output": "100."
+    },
+    {
+      "input": "What is 74 times 37?",
+      "output": "2738."
+    },
+    {
+      "input": "Who painted the Mona Lisa?",
+      "output": "Leonardo da Vinci painted the Mona Lisa."
+    },
+    {
+      "input": "What is 88 times 19?",
+      "output": "1672."
+    },
+    {
+      "input": "What is the capital of Indonesia?",
+      "output": "The capital of Indonesia is Jakarta."
+    },
+    {
+      "input": "Good afternoon",
+      "output": "Hi! How can I help today?"
+    },
+    {
+      "input": "What is 31 plus 64?",
+      "output": "95."
+    },
+    {
+      "input": "What is the capital of Belgium?",
+      "output": "The capital of Belgium is Brussels."
+    },
+    {
+      "input": "What is the capital of Chile?",
+      "output": "The capital of Chile is Santiago."
+    },
+    {
+      "input": "What is 22 times 11?",
+      "output": "242."
+    },
+    {
+      "input": "Tell me a joke.",
+      "output": "Why did the scarecrow win an award? Because he was outstanding in his field."
+    },
+    {
+      "input": "What is 52 minus 96?",
+      "output": "-44."
+    },
+    {
+      "input": "What is 16 times 3?",
+      "output": "48."
+    },
+    {
+      "input": "What is 42 minus 68?",
+      "output": "-26."
+    },
+    {
+      "input": "What is 77 minus 44?",
+      "output": "33."
+    },
+    {
+      "input": "What is the capital of Nigeria?",
+      "output": "The capital of Nigeria is Abuja."
+    },
+    {
+      "input": "What is 40 times 56?",
+      "output": "2240."
+    },
+    {
+      "input": "What planet is known as the Red Planet?",
+      "output": "Mars is known as the Red Planet."
+    },
+    {
+      "input": "What is 34 plus 84?",
+      "output": "118."
+    },
+    {
+      "input": "What is the capital of Austria?",
+      "output": "The capital of Austria is Vienna."
+    },
+    {
+      "input": "What is 5 minus 4?",
+      "output": "1."
+    },
+    {
+      "input": "What is 20 minus 87?",
+      "output": "-67."
+    },
+    {
+      "input": "Translate 'thank you' into French.",
+      "output": "“Thank you” in French is “merci.”"
+    },
+    {
+      "input": "What is the capital of Australia?",
+      "output": "The capital of Australia is Canberra."
+    },
+    {
+      "input": "Got a short pun?",
+      "output": "I’m reading a book on anti-gravity. It’s impossible to put down."
+    },
+    {
+      "input": "What's up?",
+      "output": "Good evening! What would you like to know?"
+    },
+    {
+      "input": "What is the capital of France?",
+      "output": "The capital of France is Paris."
+    },
+    {
+      "input": "What is 91 times 22?",
+      "output": "2002."
+    },
+    {
+      "input": "What is 29 minus 7?",
+      "output": "22."
+    },
+    {
+      "input": "What is 10 minus 84?",
+      "output": "-74."
+    },
+    {
+      "input": "What is 91 times 64?",
+      "output": "5824."
+    },
+    {
+      "input": "What is 62 plus 10?",
+      "output": "72."
+    },
+    {
+      "input": "What is 41 plus 60?",
+      "output": "101."
+    },
+    {
+      "input": "What is 84 minus 81?",
+      "output": "3."
+    },
+    {
+      "input": "What is the capital of Qatar?",
+      "output": "The capital of Qatar is Doha."
+    },
+    {
+      "input": "What is 16 minus 91?",
+      "output": "-75."
+    },
+    {
+      "input": "What is the capital of South Korea?",
+      "output": "The capital of South Korea is Seoul."
+    },
+    {
+      "input": "How do I print in Python?",
+      "output": "Use the print() function, e.g. print(\"Hello, world!\")."
+    },
+    {
+      "input": "What is the capital of Netherlands?",
+      "output": "The capital of Netherlands is Amsterdam."
+    },
+    {
+      "input": "That’s all for now.",
+      "output": "Great — have a good one!"
+    },
+    {
+      "input": "What is 40 minus 56?",
+      "output": "-16."
+    },
+    {
+      "input": "What is the capital of United States?",
+      "output": "The capital of United States is Washington, D.C.."
+    },
+    {
+      "input": "What is 50 plus 23?",
+      "output": "73."
+    },
+    {
+      "input": "What is 62 plus 86?",
+      "output": "148."
+    },
+    {
+      "input": "What is 99 minus 41?",
+      "output": "58."
+    },
+    {
+      "input": "What is 10 times 78?",
+      "output": "780."
+    },
+    {
+      "input": "What is the capital of Portugal?",
+      "output": "The capital of Portugal is Lisbon."
+    },
+    {
+      "input": "What is 13 times 67?",
+      "output": "871."
+    },
+    {
+      "input": "What is the capital of Canada?",
+      "output": "The capital of Canada is Ottawa."
+    },
+    {
+      "input": "What is 7 minus 74?",
+      "output": "-67."
+    },
+    {
+      "input": "Another joke please.",
+      "output": "I told my computer I needed a break, and it said: 'No problem — I’ll go to sleep.'"
+    },
+    {
+      "input": "What is 37 times 70?",
+      "output": "2590."
+    },
+    {
+      "input": "What is 70 minus 13?",
+      "output": "57."
+    },
+    {
+      "input": "What is 14 plus 52?",
+      "output": "66."
+    },
+    {
+      "input": "What is 19 plus 18?",
+      "output": "37."
+    },
+    {
+      "input": "What is 72 minus 62?",
+      "output": "10."
+    },
+    {
+      "input": "What is 39 plus 74?",
+      "output": "113."
+    },
+    {
+      "input": "What is the capital of Denmark?",
+      "output": "The capital of Denmark is Copenhagen."
+    },
+    {
+      "input": "How do I loop over a list in Python?",
+      "output": "Use for: \n\nfor x in nums:\n    print(x)"
+    },
+    {
+      "input": "What is the largest mammal?",
+      "output": "The blue whale."
+    },
+    {
+      "input": "Thanks!",
+      "output": "You’re welcome — happy to help."
+    },
+    {
+      "input": "What is 60 times 69?",
+      "output": "4140."
+    },
+    {
+      "input": "What is 12 plus 85?",
+      "output": "97."
+    }
+  ]
+}
