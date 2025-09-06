@@ -21,6 +21,11 @@ const FETCH_TIMEOUT_MS = 10000;
 /* Optional: turn on to log diagnostics */
 const DEBUG = true;
 
+// Put this next to your other config constants
+// If your existing `API` points at ".../api/random", this derives the reply URL:
+const API_REPLY = API.replace(/\/random\b.*/, "/reply");
+
+
 
 /* =======================
    2) UTILITIES
@@ -135,6 +140,41 @@ async function postCalculation(outEl, rawValue) {
   }
 }
 
+/* =======================
+   3c) CORE ACTIONS
+   ======================= */
+
+async function sendGreeting(outEl, text) {
+  outEl.textContent = "Sending…";
+  const url = API_REPLY;
+
+  try {
+    const res = await fetchWithTimeout(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text })
+    });
+
+    if (!res.ok) {
+      // Try to read a bit of the body for context
+      const body = await res.text().catch(() => "");
+      throw new Error(`HTTP ${res.status} ${res.statusText}${body ? " — " + body.slice(0, 200) : ""}`);
+    }
+
+    // Expecting { "reply": <string> } from Flask
+    const data = await safeJson(res);
+
+    if (!("reply" in data)) {
+      throw new Error(`Missing "reply" in response. Got: ${JSON.stringify(data).slice(0, 200)}`);
+    }
+
+    outEl.textContent = data.reply;
+    if (DEBUG) console.log("[success] reply =", data.reply);
+  } catch (err) {
+    showError(outEl, err, "POST /api/reply");
+  }
+}
+
 
 /* =======================
    4) WIRE UP THE UI
@@ -164,6 +204,27 @@ document.getElementById("calcBtn")?.addEventListener("click", () => {
   const outEl   = document.getElementById("calcOut");
   postCalculation(outEl, inputEl.value);
 });
+
+/* =======================
+   5) EVENT HANDLERS
+   ======================= */
+
+function handleTalkFormSubmit(e) {
+  e.preventDefault();
+  const input = document.getElementById("say");
+  const outEl = document.getElementById("replyOut");
+  const text = (input?.value || "").trim();
+
+  if (!text) {
+    showError(outEl, new Error("Please type something."), "ui/validation");
+    return;
+  }
+  sendGreeting(outEl, text);
+}
+
+// attach once DOM is ready (or wherever you bind other handlers)
+document.getElementById("talkForm")?.addEventListener("submit", handleTalkFormSubmit);
+
 
 
 

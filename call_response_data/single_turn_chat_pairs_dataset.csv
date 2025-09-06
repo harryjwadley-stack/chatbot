@@ -1,0 +1,238 @@
+input,output
+What is 92 times 62?,5704.
+What is the capital of Russia?,The capital of Russia is Moscow.
+What is 76 plus 34?,110.
+What is 13 times 25?,325.
+What is database?,"A database is an organized collection of data, typically accessed and managed via a DBMS."
+What is 76 plus 72?,148.
+What is the capital of China?,The capital of China is Beijing.
+How do I create an array in JavaScript?,"Use brackets: const arr = [1, 2, 3];"
+How do I define a function in Python?,"Use def: 
+
+def greet(name):
+    return f""Hello, {name}!"""
+What is 67 minus 44?,23.
+What is 11 minus 12?,-1.
+Good evening,Hello! What can I do for you?
+Define neuron.,Here’s a concise definition of neuron: a nerve cell that transmits information via electrical and chemical signals
+What is the capital of Sweden?,The capital of Sweden is Stockholm.
+What is 11 minus 63?,-52.
+What is the capital of Finland?,The capital of Finland is Helsinki.
+What is 20 plus 70?,90.
+What is the capital of Ghana?,The capital of Ghana is Accra.
+Yo,Good morning! How can I assist?
+What is 87 plus 88?,175.
+What is the capital of Czechia?,The capital of Czechia is Prague.
+Who wrote '1984'?,George Orwell wrote '1984'.
+What is 63 times 65?,4095.
+What is 74 times 60?,4440.
+How do I print in JavaScript?,"Use console.log(""Hello""); in Node/web console."
+What is the capital of Germany?,The capital of Germany is Berlin.
+What is the capital of Saudi Arabia?,The capital of Saudi Arabia is Riyadh.
+Translate 'hello' into Italian.,“Hello” in Italian is “ciao” (informal) or “salve.”
+What is the capital of Romania?,The capital of Romania is Bucharest.
+What is the capital of Turkey?,The capital of Turkey is Ankara.
+What is the capital of Mexico?,The capital of Mexico is Mexico City.
+Explain neuron simply.,neuron in simple terms: a nerve cell that transmits information via electrical and chemical signals
+What is the capital of Italy?,The capital of Italy is Rome.
+Translate 'good night' into Portuguese.,“Good night” in Portuguese is “boa noite.”
+What is the capital of Ireland?,The capital of Ireland is Dublin.
+What is 98 times 66?,6468.
+What is 13 minus 91?,-78.
+What is 29 plus 20?,49.
+What is 62 minus 7?,55.
+Define gravity.,Here’s a concise definition of gravity: the attractive force between masses
+What is 63 minus 25?,38.
+What is the capital of Peru?,The capital of Peru is Lima.
+Explain database index simply.,database index in simple terms: a data structure that speeds up data retrieval operations
+What is 15 minus 5?,10.
+What is the capital of New Zealand?,The capital of New Zealand is Wellington.
+What is the capital of Bangladesh?,The capital of Bangladesh is Dhaka.
+What is the capital of Egypt?,The capital of Egypt is Cairo.
+What is the capital of Vietnam?,The capital of Vietnam is Hanoi.
+What is 74 plus 31?,105.
+Good morning,Hello! What can I do for you?
+What is 40 times 89?,3560.
+How are you?,Hello! What can I do for you?
+What is the capital of Poland?,The capital of Poland is Warsaw.
+What is 6 plus 87?,93.
+What is the capital of Ethiopia?,The capital of Ethiopia is Addis Ababa.
+What is 24 plus 36?,60.
+Hello,Hello! What can I do for you?
+What is 30 times 46?,1380.
+What is 80 plus 61?,141.
+What is 89 minus 76?,13.
+Explain gravity simply.,gravity in simple terms: the attractive force between masses
+What is 46 times 15?,690.
+What is H2O commonly called?,H2O is water.
+What is 71 times 10?,710.
+What is 64 times 50?,3200.
+What is the capital of Brazil?,The capital of Brazil is Brasília.
+Explain photosynthesis simply.,"photosynthesis in simple terms: plants converting light into chemical energy (glucose), releasing oxygen"
+Explain algorithm simply.,"algorithm in simple terms: a finite, step-by-step procedure to solve a problem"
+What is 28 minus 88?,-60.
+What is 33 minus 34?,-1.
+What is 79 minus 28?,51.
+What gas do plants mostly absorb for photosynthesis?,Carbon dioxide.
+What is the capital of Hungary?,The capital of Hungary is Budapest.
+What is 81 plus 81?,162.
+What is 63 minus 47?,16.
+What is the capital of India?,The capital of India is New Delhi.
+What is algorithm?,An algorithm is a step-by-step procedure for solving a problem or performing a computation.
+What is 38 minus 77?,-39.
+What is 17 plus 69?,86.
+What is the capital of Algeria?,The capital of Algeria is Algiers.
+What is 99 times 69?,6831.
+What is 28 times 23?,644.
+What is the capital of Bulgaria?,The capital of Bulgaria is Sofia.
+What is 81 plus 23?,104.
+What is 43 plus 23?,66.
+What is the capital of Norway?,The capital of Norway is Oslo.
+What is 78 minus 23?,55.
+What is API?,An API (Application Programming Interface) lets software components communicate using defined requests and responses.
+What is 36 times 21?,756.
+What is 94 times 61?,5734.
+What is 28 plus 87?,115.
+What is the capital of Malaysia?,The capital of Malaysia is Kuala Lumpur.
+What is 33 plus 85?,118.
+What is the capital of Spain?,The capital of Spain is Madrid.
+What is 32 plus 48?,80.
+What is the capital of Kuwait?,The capital of Kuwait is Kuwait City.
+What is 99 minus 46?,53.
+How do I define a function in JavaScript?,"Use function or arrow: const add = (a,b) => a + b;"
+What is 76 times 44?,3344.
+What is 57 plus 67?,124.
+Translate 'yes' into Japanese.,“Yes” in Japanese is “はい (hai).”
+What is 82 plus 63?,145.
+What is 39 plus 37?,76.
+What is 2 plus 44?,46.
+What is 60 plus 36?,96.
+What is 40 minus 9?,31.
+What is the capital of Thailand?,The capital of Thailand is Bangkok.
+What is 50 plus 41?,91.
+What is 60 minus 7?,53.
+What is 11 minus 77?,-66.
+What is 29 minus 8?,21.
+What is 93 minus 77?,16.
+Translate 'please' into German.,“Please” in German is “bitte.”
+What is 7 times 36?,252.
+What is the capital of Kenya?,The capital of Kenya is Nairobi.
+What is photosynthesis?,"Photosynthesis is the process by which plants convert light energy into chemical energy (glucose), releasing oxygen."
+What is the capital of Pakistan?,The capital of Pakistan is Islamabad.
+What is 46 times 16?,736.
+What is 6 times 30?,180.
+What is 19 minus 5?,14.
+What is 70 minus 21?,49.
+What is 25 minus 55?,-30.
+What is 90 plus 56?,146.
+What is the capital of Japan?,The capital of Japan is Tokyo.
+What is 87 minus 71?,16.
+What is 37 plus 86?,123.
+What is 67 minus 97?,-30.
+Define algorithm.,"Here’s a concise definition of algorithm: a finite, step-by-step procedure to solve a problem"
+What is 40 minus 21?,19.
+What is the capital of United Arab Emirates?,The capital of United Arab Emirates is Abu Dhabi.
+What is 11 times 70?,770.
+What is 89 plus 75?,164.
+Hi,All good here — what’s on your mind?
+What is the capital of Argentina?,The capital of Argentina is Buenos Aires.
+What is 45 minus 76?,-31.
+What is the capital of Colombia?,The capital of Colombia is Bogotá.
+What is atom?,An atom is the smallest unit of ordinary matter that forms a chemical element.
+What is 37 minus 29?,8.
+Translate 'good morning' into Spanish.,“Good morning” in Spanish is “buenos días.”
+How do I create a list in Python?,"Use square brackets, e.g. nums = [1, 2, 3]."
+What is the capital of Venezuela?,The capital of Venezuela is Caracas.
+What is 92 times 60?,5520.
+What is 85 minus 78?,7.
+Define photosynthesis.,"Here’s a concise definition of photosynthesis: plants converting light into chemical energy (glucose), releasing oxygen"
+What is the capital of Philippines?,The capital of Philippines is Manila.
+Howdy,Hi! How can I help today?
+What is 67 minus 91?,-24.
+What is the capital of Greece?,The capital of Greece is Athens.
+What is gravity?,Gravity is the force of attraction that pulls two masses toward each other.
+What is 83 plus 13?,96.
+What is 90 times 23?,2070.
+Hey there,Hi! How can I help today?
+What is 37 minus 54?,-17.
+What is the capital of Singapore?,The capital of Singapore is Singapore.
+How many continents are there?,Seven.
+What is the speed of light in vacuum?,"About 299,792,458 meters per second."
+What is 4 plus 67?,71.
+What is machine learning?,Machine learning is a field of AI where models learn patterns from data to make predictions or decisions.
+What is 98 minus 98?,0.
+What is 8 minus 46?,-38.
+What is 64 plus 33?,97.
+What is 95 minus 68?,27.
+Appreciate it.,Anytime!
+What is the capital of United Kingdom?,The capital of United Kingdom is London.
+What is the capital of Morocco?,The capital of Morocco is Rabat.
+Define database index.,Here’s a concise definition of database index: a data structure that speeds up data retrieval operations
+What is 43 times 59?,2537.
+What is the capital of Switzerland?,The capital of Switzerland is Bern.
+What is 24 plus 76?,100.
+What is 74 times 37?,2738.
+Who painted the Mona Lisa?,Leonardo da Vinci painted the Mona Lisa.
+What is 88 times 19?,1672.
+What is the capital of Indonesia?,The capital of Indonesia is Jakarta.
+Good afternoon,Hi! How can I help today?
+What is 31 plus 64?,95.
+What is the capital of Belgium?,The capital of Belgium is Brussels.
+What is the capital of Chile?,The capital of Chile is Santiago.
+What is 22 times 11?,242.
+Tell me a joke.,Why did the scarecrow win an award? Because he was outstanding in his field.
+What is 52 minus 96?,-44.
+What is 16 times 3?,48.
+What is 42 minus 68?,-26.
+What is 77 minus 44?,33.
+What is the capital of Nigeria?,The capital of Nigeria is Abuja.
+What is 40 times 56?,2240.
+What planet is known as the Red Planet?,Mars is known as the Red Planet.
+What is 34 plus 84?,118.
+What is the capital of Austria?,The capital of Austria is Vienna.
+What is 5 minus 4?,1.
+What is 20 minus 87?,-67.
+Translate 'thank you' into French.,“Thank you” in French is “merci.”
+What is the capital of Australia?,The capital of Australia is Canberra.
+Got a short pun?,I’m reading a book on anti-gravity. It’s impossible to put down.
+What's up?,Good evening! What would you like to know?
+What is the capital of France?,The capital of France is Paris.
+What is 91 times 22?,2002.
+What is 29 minus 7?,22.
+What is 10 minus 84?,-74.
+What is 91 times 64?,5824.
+What is 62 plus 10?,72.
+What is 41 plus 60?,101.
+What is 84 minus 81?,3.
+What is the capital of Qatar?,The capital of Qatar is Doha.
+What is 16 minus 91?,-75.
+What is the capital of South Korea?,The capital of South Korea is Seoul.
+How do I print in Python?,"Use the print() function, e.g. print(""Hello, world!"")."
+What is the capital of Netherlands?,The capital of Netherlands is Amsterdam.
+That’s all for now.,Great — have a good one!
+What is 40 minus 56?,-16.
+What is the capital of United States?,"The capital of United States is Washington, D.C.."
+What is 50 plus 23?,73.
+What is 62 plus 86?,148.
+What is 99 minus 41?,58.
+What is 10 times 78?,780.
+What is the capital of Portugal?,The capital of Portugal is Lisbon.
+What is 13 times 67?,871.
+What is the capital of Canada?,The capital of Canada is Ottawa.
+What is 7 minus 74?,-67.
+Another joke please.,"I told my computer I needed a break, and it said: 'No problem — I’ll go to sleep.'"
+What is 37 times 70?,2590.
+What is 70 minus 13?,57.
+What is 14 plus 52?,66.
+What is 19 plus 18?,37.
+What is 72 minus 62?,10.
+What is 39 plus 74?,113.
+What is the capital of Denmark?,The capital of Denmark is Copenhagen.
+How do I loop over a list in Python?,"Use for: 
+
+for x in nums:
+    print(x)"
+What is the largest mammal?,The blue whale.
+Thanks!,You’re welcome — happy to help.
+What is 60 times 69?,4140.
+What is 12 plus 85?,97.

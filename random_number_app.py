@@ -38,3 +38,18 @@ def calculate():
     result = x * x + 10
 
     return jsonify({"input": x, "result": result})
+
+
+@app.route("/api/reply", methods=["POST"])
+def reply():
+    data = request.get_json(silent=True) or {}
+    text = str(data.get("text", "")).strip().lower()
+
+    if text in {"Hello","Hi","Hey","hello","hi","hey"}:
+        out = "Hola amigo!"
+    elif text in {"Bye","Goodbye","bye","goodbye"}:
+        out = "Adios amigo"
+    else:
+        out = None
+
+    return jsonify({"reply": out})
