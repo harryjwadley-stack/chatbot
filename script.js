@@ -3,7 +3,7 @@ document.getElementById("showMessageBtn").addEventListener("click", async () => 
     output.textContent = "Loading...";
 
     try {
-        const response = await fetch("https://harrywadley6.pythonanywhere.com/api");
+        const response = await fetch("https://harrywadley6.pythonanywhere.com/api/message");
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
         const data = await response.json();

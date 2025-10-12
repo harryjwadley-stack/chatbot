@@ -6,7 +6,7 @@ CORS(app)  # allow cross-origin requests from your GitHub Pages site
 
 @app.route("/api/message", methods=["GET"])
 def get_message():
-    return jsonify({"message": "wowzer"})
+    return jsonify({"message": "Hello from PythonAnywhere!"})
 
 if __name__ == "__main__":
     app.run()
