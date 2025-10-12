@@ -1,0 +1,10 @@
+.venv/
+chatbot-distilgpt2-env/
+huggingface/
+.cache/
+__pycache__/
+
+ARCHIVE/
+ARCHIVE - 121025/
+
+#testing TESTING -- CHANGE something

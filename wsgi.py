@@ -8,4 +8,4 @@ if project_home not in sys.path:
 #with open(activate_this) as f:
 #    exec(f.read(), {'__file__': activate_this})
 
-from app import app as application
+from random_number_app import app as application

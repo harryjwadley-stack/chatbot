@@ -1,55 +1,12 @@
-# app.py
-from flask import Flask, jsonify, request
-import random
+from flask import Flask, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # allow cross-origin requests from your GitHub Pages site
 
-GHPAGES_ORIGIN = 'https://harryjwadley-stack.github.io'  # EXACT value of location.origin
+@app.route("/api/message", methods=["GET"])
+def get_message():
+    return jsonify({"message": "wowzer"})
 
-@app.after_request
-def add_cors(resp):
-    resp.headers["Access-Control-Allow-Origin"] = GHPAGES_ORIGIN
-    resp.headers["Vary"] = "Origin"
-    resp.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS"
-    resp.headers["Access-Control-Allow-Headers"] = "Content-Type"
-    return resp
-
-@app.get("/")
-def health():
-    return "API is running. Try /api/random"
-
-@app.route("/api/random", methods=["GET", "OPTIONS"])
-def random_number():
-    if request.method == "OPTIONS":
-        return ("", 204)
-    return jsonify({"value": random.randint(0, 100)})
-
-@app.route("/api/calculate", methods=["POST"])
-def calculate():
-    data = request.get_json(silent=True) or {}
-    if "value" not in data:
-        return jsonify({"error": "Missing 'value'"}), 400
-    try:
-        x = float(data["value"])
-    except (TypeError, ValueError):
-        return jsonify({"error": "'value' must be numeric"}), 400
-
-    # Replace with your real calculation:
-    result = x * x + 10
-
-    return jsonify({"input": x, "result": result})
-
-
-@app.route("/api/reply", methods=["POST"])
-def reply():
-    data = request.get_json(silent=True) or {}
-    text = str(data.get("text", "")).strip().lower()
-
-    if text in {"Hello","Hi","Hey","hello","hi","hey"}:
-        out = "Hola amigo!"
-    elif text in {"Bye","Goodbye","bye","goodbye"}:
-        out = "Adios amigo"
-    else:
-        out = None
-
-    return jsonify({"reply": out})
+if __name__ == "__main__":
+    app.run()
