@@ -1,14 +1,15 @@
-document.getElementById("showMessageBtn").addEventListener("click", async () => {
-    const output = document.getElementById("messageOutput");
-    output.textContent = "Loading...";
+// Add Expense Button
+document.getElementById("addExpenseBtn").addEventListener("click", () => {
+    const container = document.getElementById("expenseContainer");
 
-    try {
-        const response = await fetch("https://harrywadley6.pythonanywhere.com/api/message");
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    // Prevent creating multiple inputs
+    if (!document.getElementById("expenseInput")) {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.id = "expenseInput";
+        input.placeholder = "Add amount";  // <-- placeholder text
+        input.focus();
 
-        const data = await response.json();
-        output.textContent = data.message;
-    } catch (err) {
-        output.textContent = "Error fetching message: " + err;
+        container.appendChild(input);
     }
 });
