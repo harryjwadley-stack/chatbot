@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Create dropdown
         const select = document.createElement("select");
         select.id = "expenseSelect";
-        const options = ["A", "B", "C", "D"];
+        const options = ["Groceries", "Social", "Treat", "Unexpected cost"];
         options.forEach(opt => {
             const optionEl = document.createElement("option");
             optionEl.value = opt;
