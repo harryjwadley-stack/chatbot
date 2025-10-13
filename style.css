@@ -1,21 +1,28 @@
 body {
     font-family: Arial, sans-serif;
-    padding: 50px;
+    padding: 20px;
     margin: 0;
-    text-align: center;
 }
 
-/* Submitted table at top center */
+/* Main flex container: table + sidebar */
+.main-container {
+    display: flex;
+    align-items: flex-start; /* keep sidebar at top */
+    justify-content: center;
+    gap: 50px; /* space between table and sidebar */
+}
+
+/* Table styling */
 .table-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 50px; /* space between table and sidebar */
 }
 
 #submittedExpenses {
     border-collapse: collapse;
-    width: 80%;
+    width: 100%;
     max-width: 700px;
 }
 
@@ -34,16 +41,15 @@ body {
     background-color: #f9f9f9;
 }
 
-/* Sidebar aligned left under table */
+/* Sidebar styling */
 .sidebar {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: 0 auto; /* optional centering for small screens */
-    width: 300px; /* fixed sidebar width */
+    min-width: 250px;
 }
 
-/* Add Expense input and dropdown */
+/* Inputs and dropdown */
 #expenseContainer {
     margin-top: 20px;
 }
@@ -61,6 +67,7 @@ body {
     margin-bottom: 10px;
 }
 
+/* Buttons */
 button {
     padding: 10px 20px;
     font-size: 16px;
