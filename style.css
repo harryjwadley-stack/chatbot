@@ -10,40 +10,7 @@ button {
     cursor: pointer;
 }
 
-p {
-    font-size: 18px;
-    margin-top: 20px;
-}
-
-expenseContainer {
-    margin-top: 20px;
-}
-
-priceInput {
-    padding: 5px;
-    margin-left: 10px;
-    width: 100px;
-}
-
-expenseInput {
-    padding: 8px;
-    font-size: 16px;
-    width: 150px;
-    margin-bottom: 10px;
-}
-
-expenseSelect {
-    padding: 5px;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-submittedExpenses {
-    margin-top: 30px;
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
-}
-
+/* Expense input and dropdown styling */
 #expenseContainer {
     margin-top: 20px;
 }
@@ -61,10 +28,32 @@ submittedExpenses {
     margin-bottom: 10px;
 }
 
+/* Submitted expenses table styling */
 #submittedExpenses {
     margin-top: 20px;
+    border-collapse: collapse;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+#submittedExpenses th,
+#submittedExpenses td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+#submittedExpenses th {
+    background-color: #f2f2f2;
+}
+
+/* Alternate row colors for readability */
+#submittedExpenses tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Category totals styling */
 #categoryTotals {
     margin-top: 20px;
     font-weight: bold;
