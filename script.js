@@ -4,10 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitted = document.getElementById("submittedExpenses");
     const totalsDiv = document.getElementById("categoryTotals");
 
-    // Counter for purchases
     let purchaseCount = 0;
 
-    // Running totals for each category
+    // Running totals per category
     const categoryTotals = {
         "Groceries": 0,
         "Social": 0,
@@ -18,29 +17,29 @@ document.addEventListener("DOMContentLoaded", () => {
     addBtn.addEventListener("click", () => {
         container.innerHTML = "";
 
-        // Create text input for amount
+        // Create text input
         const input = document.createElement("input");
         input.type = "number";
         input.step = "0.01";
         input.id = "expenseInput";
         input.placeholder = "Enter amount";
 
-        // Create dropdown for category
+        // Create dropdown
         const select = document.createElement("select");
         select.id = "expenseSelect";
         const options = ["Select", "Groceries", "Social", "Treat", "Unexpected"];
         options.forEach(opt => {
             const optionEl = document.createElement("option");
-            optionEl.value = opt;
+            optionEl.value = opt;  // must match the key in categoryTotals
             optionEl.textContent = opt;
             select.appendChild(optionEl);
         });
 
-        // Create Submit button
+        // Create submit button
         const submitBtn = document.createElement("button");
         submitBtn.textContent = "Submit";
 
-        // Append to container
+        // Append elements
         container.appendChild(input);
         container.appendChild(document.createElement("br"));
         container.appendChild(select);
@@ -49,9 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         input.focus();
 
-        // Handle Submit button click
         submitBtn.addEventListener("click", () => {
-            const amount = parseFloat(input.value.trim());
+            const amount = parseFloat(input.value);
             const category = select.value;
 
             if (isNaN(amount) || amount <= 0) {
@@ -59,8 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            if (category === "Select") {
-                alert("Please select a category.");
+            if (!categoryTotals.hasOwnProperty(category)) {
+                alert("Please select a valid category.");
                 return;
             }
 
@@ -72,10 +70,10 @@ document.addEventListener("DOMContentLoaded", () => {
             expenseText.textContent = `Purchase #${purchaseCount}: Amount: ${amount.toFixed(2)}, Category: ${category}`;
             submitted.appendChild(expenseText);
 
-            // Update running totals
+            // Update category total
             categoryTotals[category] += amount;
 
-            // Update category totals display
+            // Refresh totals display
             totalsDiv.innerHTML = `
                 Groceries: ${categoryTotals["Groceries"].toFixed(2)}<br>
                 Social: ${categoryTotals["Social"].toFixed(2)}<br>
@@ -83,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 Unexpected: ${categoryTotals["Unexpected"].toFixed(2)}
             `;
 
-            // Clear the input/dropdown
+            // Clear container
             container.innerHTML = "";
         });
     });
