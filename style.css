@@ -15,12 +15,31 @@ p {
     margin-top: 20px;
 }
 
-#expenseContainer {
+expenseContainer {
     margin-top: 20px;
 }
 
-#priceInput {
+priceInput {
     padding: 5px;
     margin-left: 10px;
     width: 100px;
+}
+
+expenseInput {
+    padding: 8px;
+    font-size: 16px;
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+expenseSelect {
+    padding: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+submittedExpenses {
+    margin-top: 30px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
 }
