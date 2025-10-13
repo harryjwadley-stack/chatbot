@@ -3,8 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("expenseContainer");
     const submitted = document.getElementById("submittedExpenses");
 
+    // Counter for purchases
+    let purchaseCount = 0;
+
     addBtn.addEventListener("click", () => {
-        // Clear previous elements (optional, or you could allow multiple rows)
         container.innerHTML = "";
 
         // Create text input
@@ -13,10 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
         input.id = "expenseInput";
         input.placeholder = "Enter amount";
 
-        // Create dropdown
+        // Create dropdown with new options
         const select = document.createElement("select");
         select.id = "expenseSelect";
-        const options = ["Groceries", "Social", "Treat", "Unexpected cost"];
+        const options = ["Select", "Groceries", "Social", "Treat", "Unexpected"];
         options.forEach(opt => {
             const optionEl = document.createElement("option");
             optionEl.value = opt;
@@ -47,9 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // Display submitted expense
+            // Increment purchase count
+            purchaseCount += 1;
+
+            // Display submitted expense with numbered prefix
             const expenseText = document.createElement("p");
-            expenseText.textContent = `Amount: ${amount}, Category: ${category}`;
+            expenseText.textContent = `Purchase #${purchaseCount}: Amount: ${amount}, Category: ${category}`;
             submitted.appendChild(expenseText);
 
             // Optionally clear inputs
