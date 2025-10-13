@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         input.id = "expenseInput";
         input.placeholder = "Enter amount";
 
-        // Create dropdown with new options
+        // Create dropdown
         const select = document.createElement("select");
         select.id = "expenseSelect";
         const options = ["Select", "Groceries", "Social", "Treat", "Unexpected"];
@@ -57,9 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
             expenseText.textContent = `Purchase #${purchaseCount}: Amount: ${amount}, Category: ${category}`;
             submitted.appendChild(expenseText);
 
-            // Optionally clear inputs
-            input.value = "";
-            select.selectedIndex = 0;
+            // Clear the container (remove input, dropdown, submit button)
+            container.innerHTML = "";
         });
     });
 });
