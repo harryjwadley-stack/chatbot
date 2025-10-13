@@ -43,3 +43,29 @@ submittedExpenses {
     border-top: 1px solid #ccc;
     padding-top: 10px;
 }
+
+#expenseContainer {
+    margin-top: 20px;
+}
+
+#expenseInput {
+    padding: 8px;
+    font-size: 16px;
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+#expenseSelect {
+    padding: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#submittedExpenses {
+    margin-top: 20px;
+}
+
+#categoryTotals {
+    margin-top: 20px;
+    font-weight: bold;
+}
