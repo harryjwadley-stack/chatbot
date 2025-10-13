@@ -1,16 +1,26 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
     padding: 50px;
+    margin: 0;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+/* Flex container for sidebar + table */
+.container {
+    display: flex;
+    align-items: flex-start; /* align top */
+    justify-content: flex-start;
+    gap: 50px; /* space between sidebar and table */
 }
 
-/* Expense input and dropdown styling */
+/* Sidebar on the left */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 200px;
+}
+
+/* Add Expense input and dropdown */
 #expenseContainer {
     margin-top: 20px;
 }
@@ -28,13 +38,32 @@ button {
     margin-bottom: 10px;
 }
 
-/* Submitted expenses table styling */
-#submittedExpenses {
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+/* Category totals styling */
+#categoryTotals {
     margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Center the table */
+.table-container {
+    flex: 1; /* take remaining space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Table styling */
+#submittedExpenses {
     border-collapse: collapse;
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    max-width: 600px;
 }
 
 #submittedExpenses th,
@@ -48,13 +77,6 @@ button {
     background-color: #f2f2f2;
 }
 
-/* Alternate row colors for readability */
 #submittedExpenses tbody tr:nth-child(even) {
     background-color: #f9f9f9;
-}
-
-/* Category totals styling */
-#categoryTotals {
-    margin-top: 20px;
-    font-weight: bold;
 }

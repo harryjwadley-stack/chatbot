@@ -1,92 +1,82 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const addBtn = document.getElementById("addExpenseBtn");
-    const container = document.getElementById("expenseContainer");
-    const submittedTableBody = document.getElementById("submittedExpenses").querySelector("tbody");
-    const totalsDiv = document.getElementById("categoryTotals");
+body {
+    font-family: Arial, sans-serif;
+    padding: 50px;
+    margin: 0;
+}
 
-    let purchaseCount = 0;
+/* Flex container for sidebar + table */
+.container {
+    display: flex;
+    align-items: flex-start; /* align top */
+    justify-content: flex-start;
+    gap: 50px; /* space between sidebar and table */
+}
 
-    // Running totals per category
-    const categoryTotals = {
-        "Groceries": 0,
-        "Social": 0,
-        "Treat": 0,
-        "Unexpected": 0
-    };
+/* Sidebar on the left */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 200px;
+}
 
-    addBtn.addEventListener("click", () => {
-        container.innerHTML = "";
+/* Add Expense input and dropdown */
+#expenseContainer {
+    margin-top: 20px;
+}
 
-        // Create text input
-        const input = document.createElement("input");
-        input.type = "number";
-        input.step = "0.01";
-        input.id = "expenseInput";
-        input.placeholder = "Enter amount";
+#expenseInput {
+    padding: 8px;
+    font-size: 16px;
+    width: 150px;
+    margin-bottom: 10px;
+}
 
-        // Create dropdown
-        const select = document.createElement("select");
-        select.id = "expenseSelect";
-        const options = ["Select", "Groceries", "Social", "Treat", "Unexpected"];
-        options.forEach(opt => {
-            const optionEl = document.createElement("option");
-            optionEl.value = opt;
-            optionEl.textContent = opt;
-            select.appendChild(optionEl);
-        });
+#expenseSelect {
+    padding: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
 
-        // Create submit button
-        const submitBtn = document.createElement("button");
-        submitBtn.textContent = "Submit";
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
 
-        // Append elements
-        container.appendChild(input);
-        container.appendChild(document.createElement("br"));
-        container.appendChild(select);
-        container.appendChild(document.createElement("br"));
-        container.appendChild(submitBtn);
+/* Category totals styling */
+#categoryTotals {
+    margin-top: 20px;
+    font-weight: bold;
+}
 
-        input.focus();
+/* Center the table */
+.table-container {
+    flex: 1; /* take remaining space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        submitBtn.addEventListener("click", () => {
-            const amount = parseFloat(input.value);
-            const category = select.value;
+/* Table styling */
+#submittedExpenses {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 600px;
+}
 
-            if (isNaN(amount) || amount <= 0) {
-                alert("Please enter a valid amount.");
-                return;
-            }
+#submittedExpenses th,
+#submittedExpenses td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
 
-            if (!categoryTotals.hasOwnProperty(category) || category === "Select") {
-                alert("Please select a valid category.");
-                return;
-            }
+#submittedExpenses th {
+    background-color: #f2f2f2;
+}
 
-            // Increment purchase count
-            purchaseCount += 1;
-
-            // Add a new row to the table
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${purchaseCount}</td>
-                <td>${amount.toFixed(2)}</td>
-                <td>${category}</td>
-            `;
-            submittedTableBody.appendChild(row);
-
-            // Update category totals
-            categoryTotals[category] += amount;
-
-            // Refresh totals display
-            totalsDiv.innerHTML = `
-                Groceries: ${categoryTotals["Groceries"].toFixed(2)}<br>
-                Social: ${categoryTotals["Social"].toFixed(2)}<br>
-                Treat: ${categoryTotals["Treat"].toFixed(2)}<br>
-                Unexpected: ${categoryTotals["Unexpected"].toFixed(2)}
-            `;
-
-            // Clear container
-            container.innerHTML = "";
-        });
-    });
-});
+#submittedExpenses tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
