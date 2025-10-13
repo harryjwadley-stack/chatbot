@@ -11,7 +11,20 @@
 
     <button id="addExpenseBtn">Add Expense</button>
     <div id="expenseContainer"></div> <!-- input + dropdown + submit -->
-    <div id="submittedExpenses"></div> <!-- submitted entries -->
+
+    <h2>Submitted Expenses</h2>
+    <table id="submittedExpenses" border="1">
+        <thead>
+            <tr>
+                <th>Purchase #</th>
+                <th>Amount</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- JS will append new rows here -->
+        </tbody>
+    </table>
 
     <h2>Category Totals</h2>
     <div id="categoryTotals">

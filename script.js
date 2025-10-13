@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const addBtn = document.getElementById("addExpenseBtn");
     const container = document.getElementById("expenseContainer");
-    const submitted = document.getElementById("submittedExpenses");
+    const submittedTableBody = document.getElementById("submittedExpenses").querySelector("tbody");
     const totalsDiv = document.getElementById("categoryTotals");
 
     let purchaseCount = 0;
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const options = ["Select", "Groceries", "Social", "Treat", "Unexpected"];
         options.forEach(opt => {
             const optionEl = document.createElement("option");
-            optionEl.value = opt;  // must match the key in categoryTotals
+            optionEl.value = opt;
             optionEl.textContent = opt;
             select.appendChild(optionEl);
         });
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            if (!categoryTotals.hasOwnProperty(category)) {
+            if (!categoryTotals.hasOwnProperty(category) || category === "Select") {
                 alert("Please select a valid category.");
                 return;
             }
@@ -65,12 +65,16 @@ document.addEventListener("DOMContentLoaded", () => {
             // Increment purchase count
             purchaseCount += 1;
 
-            // Display submitted expense
-            const expenseText = document.createElement("p");
-            expenseText.textContent = `Purchase #${purchaseCount}: Amount: ${amount.toFixed(2)}, Category: ${category}`;
-            submitted.appendChild(expenseText);
+            // Add a new row to the table
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${purchaseCount}</td>
+                <td>${amount.toFixed(2)}</td>
+                <td>${category}</td>
+            `;
+            submittedTableBody.appendChild(row);
 
-            // Update category total
+            // Update category totals
             categoryTotals[category] += amount;
 
             // Refresh totals display
