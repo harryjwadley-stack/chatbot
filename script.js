@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
             function showCalculatedInput() {
                 allowanceContainer.innerHTML = "";
 
-                const labels = ["Income", "Rent", "Car Payments", "Bills", "Other", "Ideal Savings"];
+                const labels = ["Income", "Rent", "Car Payments", "Bills", "Ideal Savings", "Other"];
                 const inputs = {};
 
                 labels.forEach(label => {
@@ -188,6 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     inputEl.placeholder = label;
                     inputEl.style.display = "block";
                     inputEl.style.marginBottom = "5px";
+                    inputEl.value=0;
 
                     allowanceContainer.appendChild(labelEl);
                     allowanceContainer.appendChild(inputEl);
@@ -204,15 +205,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     const rent = parseFloat(inputs["Rent"].value) || 0;
                     const car = parseFloat(inputs["Car Payments"].value) || 0;
                     const bills = parseFloat(inputs["Bills"].value) || 0;
-                    const other = parseFloat(inputs["Other"].value) || 0;
                     const savings = parseFloat(inputs["Ideal Savings"].value) || 0;
+                    const other = parseFloat(inputs["Other"].value) || 0;
 
                     if (isNaN(income) || income <= 0) {
                         alert("Please enter a valid income.");
                         return;
                     }
 
-                    const allowance = income - (rent + car + bills + other + savings);
+                    const allowance = income - (rent + car + bills + savings + other);
                     currentAllowance = allowance;
                     allowanceDisplay.textContent = `Allowance: ${allowance.toFixed(2)}`;
                     updateAllowanceRemaining();
