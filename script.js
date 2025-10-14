@@ -160,10 +160,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 submitBtn.addEventListener("click", () => {
                     const allowance = parseFloat(input.value);
-                    if (isNaN(allowance) || allowance <= 0) {
-                        alert("Please enter a valid allowance.");
+                    if (isNaN(allowance)) {
+                        alert("Please enter a valid allowance (0 or more).");
                         return;
                     }
+
 
                     currentAllowance = allowance;
                     allowanceDisplay.textContent = `Allowance: ${allowance.toFixed(2)}`;
