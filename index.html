@@ -9,11 +9,15 @@
 <body>
     <h1>SavR</h1>
 
+    <!-- Top horizontal row: Add Expense/Set Budget (left), Table (center), Category totals (right) -->
     <div class="top-row">
-        <!-- Left: Add Expense form -->
-        <div class="add-expense-form">
+        <!-- Left: Add Expense + Set Budget -->
+        <div class="left-panel">
             <button id="addExpenseBtn">Add Expense</button>
-            <div id="expenseContainer"></div>
+            <div id="expenseContainer"></div> <!-- input + dropdown + submit -->
+
+            <button id="setBudgetBtn">Set Budget</button>
+            <div id="budgetContainer"></div> <!-- budget input + submit -->
         </div>
 
         <!-- Center: Submitted Expenses Table -->
@@ -33,7 +37,7 @@
             </table>
         </div>
 
-        <!-- Right: Category Totals -->
+        <!-- Right: Category totals -->
         <div class="sidebar">
             <h2>Category Totals</h2>
             <div id="categoryTotals">
@@ -42,16 +46,6 @@
                 Treat: 0<br>
                 Unexpected: 0
             </div>
-        </div>
-
-        <div class="add-expense-form">
-            <!-- Add Expense button -->
-            <button id="addExpenseBtn">Add Expense</button>
-            <div id="expenseContainer"></div> <!-- input + dropdown + submit -->
-
-            <!-- Set Budget button -->
-            <button id="setBudgetBtn">Set Budget</button>
-            <div id="budgetContainer"></div> <!-- optional container for budget input -->
         </div>
     </div>
 
