@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const submittedTableBody = document.getElementById("submittedExpenses").querySelector("tbody");
     const totalsDiv = document.getElementById("categoryTotals");
 
+    // New elements for Set Budget
+    const setBudgetBtn = document.getElementById("setBudgetBtn");
+    const budgetContainer = document.getElementById("budgetContainer");
+
     let purchaseCount = 0;
 
     // Running totals per category
@@ -14,17 +18,16 @@ document.addEventListener("DOMContentLoaded", () => {
         "Unexpected": 0
     };
 
+    // --- Add Expense button functionality ---
     addBtn.addEventListener("click", () => {
         container.innerHTML = "";
 
-        // Create text input
         const input = document.createElement("input");
         input.type = "number";
         input.step = "0.01";
         input.id = "expenseInput";
         input.placeholder = "Enter amount";
 
-        // Create dropdown
         const select = document.createElement("select");
         select.id = "expenseSelect";
         const options = ["Select", "Groceries", "Social", "Treat", "Unexpected"];
@@ -35,11 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
             select.appendChild(optionEl);
         });
 
-        // Create submit button
         const submitBtn = document.createElement("button");
         submitBtn.textContent = "Submit";
 
-        // Append elements
         container.appendChild(input);
         container.appendChild(document.createElement("br"));
         container.appendChild(select);
@@ -62,10 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // Increment purchase count
             purchaseCount += 1;
 
-            // Add a new row to the table
             const row = document.createElement("tr");
             row.innerHTML = `
                 <td>${purchaseCount}</td>
@@ -74,10 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             submittedTableBody.appendChild(row);
 
-            // Update category totals
             categoryTotals[category] += amount;
 
-            // Refresh totals display
             totalsDiv.innerHTML = `
                 Groceries: ${categoryTotals["Groceries"].toFixed(2)}<br>
                 Social: ${categoryTotals["Social"].toFixed(2)}<br>
@@ -85,8 +82,38 @@ document.addEventListener("DOMContentLoaded", () => {
                 Unexpected: ${categoryTotals["Unexpected"].toFixed(2)}
             `;
 
-            // Clear container
             container.innerHTML = "";
         });
     });
+
+    // --- Set Budget button functionality ---
+    if (setBudgetBtn) {
+        setBudgetBtn.addEventListener("click", () => {
+            budgetContainer.innerHTML = "";
+
+            const input = document.createElement("input");
+            input.type = "number";
+            input.step = "0.01";
+            input.id = "budgetInput";
+            input.placeholder = "Enter budget amount";
+
+            const submitBtn = document.createElement("button");
+            submitBtn.textContent = "Submit Budget";
+
+            budgetContainer.appendChild(input);
+            budgetContainer.appendChild(submitBtn);
+            input.focus();
+
+            submitBtn.addEventListener("click", () => {
+                const budget = parseFloat(input.value);
+                if (isNaN(budget) || budget <= 0) {
+                    alert("Please enter a valid budget.");
+                    return;
+                }
+
+                alert(`Budget set to ${budget.toFixed(2)}`);
+                budgetContainer.innerHTML = "";
+            });
+        });
+    }
 });
