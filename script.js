@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- Set Budget button ---
     if (setBudgetBtn) {
         setBudgetBtn.addEventListener("click", () => {
-            budgetContainer.innerHTML = ""; // clear any previous inputs
+            budgetContainer.innerHTML = ""; // clear previous inputs
 
             // Create "Manual" and "Calculate" buttons
             const manualBtn = document.createElement("button");
@@ -98,9 +98,9 @@ document.addEventListener("DOMContentLoaded", () => {
             budgetContainer.appendChild(manualBtn);
             budgetContainer.appendChild(calculateBtn);
 
-            // Common function to show input + submit button
-            function showBudgetInput() {
-                budgetContainer.innerHTML = ""; // remove the two initial buttons
+            // --- Manual workflow ---
+            function showManualInput() {
+                budgetContainer.innerHTML = ""; // remove the two buttons
 
                 const input = document.createElement("input");
                 input.type = "number";
@@ -124,18 +124,59 @@ document.addEventListener("DOMContentLoaded", () => {
                         return;
                     }
 
-                    // Update budget display above category totals
-                    if (budgetDisplay) {
-                        budgetDisplay.textContent = `Budget: ${budget.toFixed(2)}`;
-                    }
-
-                    budgetContainer.innerHTML = ""; // clear input + submit after submission
+                    budgetDisplay.textContent = `Budget: ${budget.toFixed(2)}`;
+                    budgetContainer.innerHTML = "";
                 });
             }
 
-            // Click handlers for the two initial buttons
-            manualBtn.addEventListener("click", showBudgetInput);
-            calculateBtn.addEventListener("click", showBudgetInput);
+            // --- Calculate workflow ---
+            function showCalculatedInput() {
+                budgetContainer.innerHTML = ""; // remove the two buttons
+
+                const labels = ["Income", "Rent", "Car Payments", "Bills", "Other"];
+                const inputs = {};
+
+                labels.forEach(label => {
+                    const labelEl = document.createElement("label");
+                    labelEl.textContent = `${label}: `;
+                    const inputEl = document.createElement("input");
+                    inputEl.type = "number";
+                    inputEl.step = "0.01";
+                    inputEl.placeholder = label;
+                    inputEl.style.marginBottom = "5px";
+                    inputEl.style.display = "block";
+
+                    budgetContainer.appendChild(labelEl);
+                    budgetContainer.appendChild(inputEl);
+
+                    inputs[label] = inputEl;
+                });
+
+                const submitBtn = document.createElement("button");
+                submitBtn.textContent = "Submit Budget";
+                budgetContainer.appendChild(submitBtn);
+
+                submitBtn.addEventListener("click", () => {
+                    const income = parseFloat(inputs["Income"].value);
+                    const rent = parseFloat(inputs["Rent"].value) || 0;
+                    const car = parseFloat(inputs["Car Payments"].value) || 0;
+                    const bills = parseFloat(inputs["Bills"].value) || 0;
+                    const other = parseFloat(inputs["Other"].value) || 0;
+
+                    if (isNaN(income) || income <= 0) {
+                        alert("Please enter a valid income.");
+                        return;
+                    }
+
+                    const budget = income - (rent + car + bills + other);
+                    budgetDisplay.textContent = `Budget: ${budget.toFixed(2)}`;
+                    budgetContainer.innerHTML = "";
+                });
+            }
+
+            // Event listeners for the two buttons
+            manualBtn.addEventListener("click", showManualInput);
+            calculateBtn.addEventListener("click", showCalculatedInput);
         });
     }
 });
