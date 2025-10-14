@@ -139,7 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
             allowanceContainer.appendChild(manualBtn);
             allowanceContainer.appendChild(calculateBtn);
 
-            // --- Manual workflow ---
             function showManualInput() {
                 allowanceContainer.innerHTML = "";
 
@@ -148,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 input.step = "0.01";
                 input.id = "allowanceInput";
                 input.placeholder = "Enter Allowance amount";
+                input.value = 0; // default 0
 
                 const submitBtn = document.createElement("button");
                 submitBtn.textContent = "Submit Allowance";
@@ -158,13 +158,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 input.focus();
 
-                submitBtn.addEventListener("click", () => {
+                submitBtn.addEventListener("click", (event) => {
+                    event.preventDefault();  // <-- prevent default behavior
+                    event.stopPropagation(); // <-- stop bubbling
+
                     const allowance = parseFloat(input.value);
                     if (isNaN(allowance)) {
                         alert("Please enter a valid allowance (0 or more).");
                         return;
                     }
-
 
                     currentAllowance = allowance;
                     allowanceDisplay.textContent = `Allowance: ${allowance.toFixed(2)}`;
