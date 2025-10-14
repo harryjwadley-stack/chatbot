@@ -201,17 +201,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 allowanceContainer.appendChild(submitBtn);
 
                 submitBtn.addEventListener("click", () => {
-                    const income = parseFloat(inputs["Income"].value);
+                    const income = parseFloat(inputs["Income"].value) || 0;
                     const rent = parseFloat(inputs["Rent"].value) || 0;
                     const car = parseFloat(inputs["Car Payments"].value) || 0;
                     const bills = parseFloat(inputs["Bills"].value) || 0;
                     const savings = parseFloat(inputs["Ideal Savings"].value) || 0;
                     const other = parseFloat(inputs["Other"].value) || 0;
-
-                    if (isNaN(income) || income <= 0) {
-                        alert("Please enter a valid income.");
-                        return;
-                    }
 
                     const allowance = income - (rent + car + bills + savings + other);
                     currentAllowance = allowance;
