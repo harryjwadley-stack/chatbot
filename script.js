@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
             function showCalculatedInput() {
                 allowanceContainer.innerHTML = "";
 
-                const labels = ["Income", "Rent", "Car Payments", "Bills", "Other"];
+                const labels = ["Income", "Rent", "Car Payments", "Bills", "Other", "Ideal Savings"];
                 const inputs = {};
 
                 labels.forEach(label => {
@@ -205,13 +205,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     const car = parseFloat(inputs["Car Payments"].value) || 0;
                     const bills = parseFloat(inputs["Bills"].value) || 0;
                     const other = parseFloat(inputs["Other"].value) || 0;
+                    const savings = parseFloat(inputs["Ideal Savings"].value) || 0;
 
                     if (isNaN(income) || income <= 0) {
                         alert("Please enter a valid income.");
                         return;
                     }
 
-                    const allowance = income - (rent + car + bills + other);
+                    const allowance = income - (rent + car + bills + other + savings);
                     currentAllowance = allowance;
                     allowanceDisplay.textContent = `Allowance: ${allowance.toFixed(2)}`;
                     updateAllowanceRemaining();
