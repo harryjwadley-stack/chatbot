@@ -4,56 +4,25 @@ body {
     margin: 0;
 }
 
-/* Top container: Add Expense left, Category totals right */
-.top-container {
+/* Top row: Add Expense | Table | Category totals */
+.top-row {
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 30px;
+    gap: 20px;
 }
 
-/* Add Expense section */
+/* Left: Add Expense form */
 .add-expense-form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-/* Sidebar: Category totals */
-.sidebar {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     min-width: 200px;
 }
 
-/* Inputs and dropdown styling */
-#expenseContainer {
-    margin-top: 10px;
-}
-
-#expenseInput {
-    padding: 8px;
-    font-size: 16px;
-    width: 150px;
-    margin-bottom: 10px;
-}
-
-#expenseSelect {
-    padding: 5px;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-/* Buttons */
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-/* Table styling */
+/* Center: Table */
 .table-container {
+    flex: 1; /* take remaining space */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,7 +49,42 @@ button {
     background-color: #f9f9f9;
 }
 
-/* Category totals styling */
+/* Right: Category Totals */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 200px;
+}
+
+/* Inputs and dropdown */
+#expenseContainer {
+    margin-top: 10px;
+}
+
+#expenseInput {
+    padding: 8px;
+    font-size: 16px;
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+#expenseSelect {
+    padding: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+/* Category totals */
 #categoryTotals {
+    margin-top: 20px;
     font-weight: bold;
 }
