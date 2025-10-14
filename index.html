@@ -55,7 +55,25 @@
                 Unexpected: 0
             </div>
         </div>
+
+        <div class="sidebar">
+            <div id="allowanceDisplay">Allowance: 0.00</div>
+            <div id="allowanceRemaining">Allowance Remaining: 0.00</div>
+
+            <h3>Category Totals</h3>
+            <div id="categoryTotals">
+                Groceries: 0<br>
+                Social: 0<br>
+                Treat: 0<br>
+                Unexpected: 0
+            </div>
+
+            <!-- Pie chart for category breakdown -->
+            <canvas id="categoryChart" width="200" height="200"></canvas>
+        </div>
     </div>
+    <!-- Add Chart.js CDN above your script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

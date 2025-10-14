@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Elements
     const addBtn = document.getElementById("addExpenseBtn");
     const container = document.getElementById("expenseContainer");
     const submittedTableBody = document.getElementById("submittedExpenses").querySelector("tbody");
@@ -7,10 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const setAllowanceBtn = document.getElementById("setAllowanceBtn");
     const allowanceContainer = document.getElementById("allowanceContainer");
     const allowanceDisplay = document.getElementById("allowanceDisplay");
-    const allowanceRemainingDiv = document.getElementById("allowanceRemaining"); // NEW
+    const allowanceRemainingDiv = document.getElementById("allowanceRemaining");
 
     let purchaseCount = 0;
-    let currentAllowance = 0; // track current Allowance
+    let currentAllowance = 0;
 
     const categoryTotals = {
         "Groceries": 0,
@@ -19,14 +20,45 @@ document.addEventListener("DOMContentLoaded", () => {
         "Unexpected": 0
     };
 
-    // Function to update Allowance Remaining
+    // --- Pie Chart Setup ---
+    const ctx = document.getElementById("categoryChart").getContext("2d");
+    const categoryChart = new Chart(ctx, {
+        type: "pie",
+        data: {
+            labels: ["Groceries", "Social", "Treat", "Unexpected"],
+            datasets: [{
+                label: "Category Breakdown",
+                data: [0, 0, 0, 0],
+                backgroundColor: ["#36A2EB", "#FF6384", "#FFCE56", "#4BC0C0"]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' },
+                tooltip: { enabled: true }
+            }
+        }
+    });
+
+    // --- Helper Functions ---
     function updateAllowanceRemaining() {
         const totalSpent = Object.values(categoryTotals).reduce((sum, val) => sum + val, 0);
         const remaining = currentAllowance - totalSpent;
         allowanceRemainingDiv.textContent = `Allowance Remaining: ${remaining.toFixed(2)}`;
     }
 
-    // --- Add Expense button ---
+    function updatePieChart() {
+        categoryChart.data.datasets[0].data = [
+            categoryTotals["Groceries"],
+            categoryTotals["Social"],
+            categoryTotals["Treat"],
+            categoryTotals["Unexpected"]
+        ];
+        categoryChart.update();
+    }
+
+    // --- Add Expense ---
     addBtn.addEventListener("click", () => {
         container.innerHTML = "";
 
@@ -38,8 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const select = document.createElement("select");
         select.id = "expenseSelect";
-        const options = ["Select", "Groceries", "Social", "Treat", "Unexpected"];
-        options.forEach(opt => {
+        ["Select", "Groceries", "Social", "Treat", "Unexpected"].forEach(opt => {
             const optionEl = document.createElement("option");
             optionEl.value = opt;
             optionEl.textContent = opt;
@@ -65,7 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("Please enter a valid amount.");
                 return;
             }
-
             if (!categoryTotals.hasOwnProperty(category) || category === "Select") {
                 alert("Please select a valid category.");
                 return;
@@ -73,14 +103,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             purchaseCount += 1;
 
+            // Add row to table
             const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${purchaseCount}</td>
-                <td>${amount.toFixed(2)}</td>
-                <td>${category}</td>
-            `;
+            row.innerHTML = `<td>${purchaseCount}</td><td>${amount.toFixed(2)}</td><td>${category}</td>`;
             submittedTableBody.appendChild(row);
 
+            // Update totals
             categoryTotals[category] += amount;
             totalsDiv.innerHTML = `
                 Groceries: ${categoryTotals["Groceries"].toFixed(2)}<br>
@@ -89,19 +117,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 Unexpected: ${categoryTotals["Unexpected"].toFixed(2)}
             `;
 
-            // Update Allowance Remaining
+            // Update allowance remaining & pie chart
             updateAllowanceRemaining();
+            updatePieChart();
 
             container.innerHTML = "";
         });
     });
 
-    // --- Set Allowance button ---
+    // --- Set Allowance ---
     if (setAllowanceBtn) {
         setAllowanceBtn.addEventListener("click", () => {
-            allowanceContainer.innerHTML = ""; // clear previous inputs
+            allowanceContainer.innerHTML = "";
 
-            // Create "Manual" and "Calculate" buttons
+            // Create Manual & Calculate buttons
             const manualBtn = document.createElement("button");
             manualBtn.textContent = "Manual";
             const calculateBtn = document.createElement("button");
@@ -112,12 +141,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // --- Manual workflow ---
             function showManualInput() {
-                allowanceContainer.innerHTML = ""; // remove the two buttons
+                allowanceContainer.innerHTML = "";
 
                 const input = document.createElement("input");
                 input.type = "number";
                 input.step = "0.01";
-                input.id = "AllowanceInput";
+                input.id = "allowanceInput";
                 input.placeholder = "Enter Allowance amount";
 
                 const submitBtn = document.createElement("button");
@@ -130,14 +159,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 input.focus();
 
                 submitBtn.addEventListener("click", () => {
-                    const Allowance = parseFloat(input.value);
-                    if (isNaN(Allowance) || Allowance <= 0) {
-                        alert("Please enter a valid Allowance.");
+                    const allowance = parseFloat(input.value);
+                    if (isNaN(allowance) || allowance <= 0) {
+                        alert("Please enter a valid allowance.");
                         return;
                     }
 
-                    currentAllowance = Allowance;
-                    allowanceDisplay.textContent = `Allowance: ${Allowance.toFixed(2)}`;
+                    currentAllowance = allowance;
+                    allowanceDisplay.textContent = `Allowance: ${allowance.toFixed(2)}`;
                     updateAllowanceRemaining();
                     allowanceContainer.innerHTML = "";
                 });
@@ -157,8 +186,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     inputEl.type = "number";
                     inputEl.step = "0.01";
                     inputEl.placeholder = label;
-                    inputEl.style.marginBottom = "5px";
                     inputEl.style.display = "block";
+                    inputEl.style.marginBottom = "5px";
 
                     allowanceContainer.appendChild(labelEl);
                     allowanceContainer.appendChild(inputEl);
@@ -182,9 +211,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         return;
                     }
 
-                    const Allowance = income - (rent + car + bills + other);
-                    currentAllowance = Allowance;
-                    allowanceDisplay.textContent = `Allowance: ${Allowance.toFixed(2)}`;
+                    const allowance = income - (rent + car + bills + other);
+                    currentAllowance = allowance;
+                    allowanceDisplay.textContent = `Allowance: ${allowance.toFixed(2)}`;
                     updateAllowanceRemaining();
                     allowanceContainer.innerHTML = "";
                 });
