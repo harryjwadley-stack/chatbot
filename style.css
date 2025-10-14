@@ -58,7 +58,7 @@ body {
 }
 
 /* Allowance display */
-#AllowanceDisplay {
+#allowanceDisplay {
     font-weight: bold;
     margin-bottom: 15px;
     font-size: 18px;
@@ -66,12 +66,12 @@ body {
 
 /* Inputs and dropdowns */
 #expenseContainer,
-#AllowanceContainer {
+#allowanceContainer {
     margin-top: 10px;
 }
 
 #expenseInput,
-#AllowanceInput {
+#allowanceInput {
     padding: 8px;
     font-size: 16px;
     width: 150px;
