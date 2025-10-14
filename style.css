@@ -20,7 +20,7 @@ body {
     min-width: 200px;
 }
 
-/* Table in center */
+/* Center: table */
 .table-container {
     flex: 1;
     display: flex;
@@ -49,33 +49,34 @@ body {
     background-color: #f9f9f9;
 }
 
-/* Right panel: Allowance + category totals */
+/* Right sidebar: Allowance + category totals */
 .sidebar {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     min-width: 200px;
-    justify-content: flex-start; /* items stacked top-to-bottom */
+    justify-content: flex-start;
     gap: 15px; /* vertical spacing between sections */
     padding: 10px;
 }
 
-/* Headings */
+/* Headings bold */
 .sidebar h3 {
-    font-weight: bold; /* bold headings */
+    font-weight: bold;
     margin-bottom: 5px;
 }
 
-/* Allowance and Allowance Remaining values */
+/* Allowance and Allowance Remaining values - non-bold */
 #allowanceDisplay,
 #allowanceRemaining {
-    font-weight: normal; /* non-bold */
+    font-weight: normal !important;
     font-size: 16px;
+    margin-bottom: 5px;
 }
 
-/* Category totals container */
+/* Category totals container - non-bold for category amounts */
 #categoryTotals {
-    font-weight: normal; /* non-bold for values */
+    font-weight: normal;
     margin-top: 0;
 }
 
