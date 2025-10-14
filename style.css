@@ -55,13 +55,34 @@ body {
     flex-direction: column;
     align-items: flex-start;
     min-width: 200px;
+    justify-content: flex-start; /* items stacked top-to-bottom */
+    gap: 15px; /* vertical spacing between sections */
+    padding: 10px;
 }
 
-/* Allowance display */
-#allowanceDisplay {
-    font-weight: bold;
-    margin-bottom: 15px;
-    font-size: 18px;
+/* Headings */
+.sidebar h3 {
+    font-weight: bold; /* bold headings */
+    margin-bottom: 5px;
+}
+
+/* Allowance and Allowance Remaining values */
+#allowanceDisplay,
+#allowanceRemaining {
+    font-weight: normal; /* non-bold */
+    font-size: 16px;
+}
+
+/* Category totals container */
+#categoryTotals {
+    font-weight: normal; /* non-bold for values */
+    margin-top: 0;
+}
+
+/* Pie chart */
+#categoryChart {
+    margin-top: 10px;
+    max-width: 100%;
 }
 
 /* Inputs and dropdowns */
@@ -90,16 +111,4 @@ button {
     font-size: 16px;
     cursor: pointer;
     margin-bottom: 10px;
-}
-
-/* Category totals styling */
-#categoryTotals {
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-#allowanceRemaining {
-    margin-top: 15px;
-    font-weight: bold;
-    font-size: 16px;
 }
