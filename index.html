@@ -9,15 +9,14 @@
 <body>
     <h1>SavR</h1>
 
-    <!-- Top horizontal row: Add Expense/Set Budget (left), Table (center), Category totals (right) -->
     <div class="top-row">
-        <!-- Left: Add Expense + Set Budget -->
+        <!-- Left panel: Add Expense + Set Budget -->
         <div class="left-panel">
             <button id="addExpenseBtn">Add Expense</button>
-            <div id="expenseContainer"></div> <!-- input + dropdown + submit -->
+            <div id="expenseContainer"></div> <!-- dynamic input + dropdown + submit -->
 
             <button id="setBudgetBtn">Set Budget</button>
-            <div id="budgetContainer"></div> <!-- budget input + submit -->
+            <div id="budgetContainer"></div> <!-- dynamic budget input + submit -->
         </div>
 
         <!-- Center: Submitted Expenses Table -->
@@ -32,13 +31,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- JS will append rows here -->
+                    <!-- JS appends rows here -->
                 </tbody>
             </table>
         </div>
 
-        <!-- Right: Category totals -->
+        <!-- Right panel: Budget + Category Totals -->
         <div class="sidebar">
+            <div id="budgetDisplay">Budget: 0.00</div>
             <h2>Category Totals</h2>
             <div id="categoryTotals">
                 Groceries: 0<br>

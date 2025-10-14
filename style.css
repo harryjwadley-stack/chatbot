@@ -4,7 +4,7 @@ body {
     margin: 0;
 }
 
-/* Top row: left panel + table + sidebar */
+/* Top row layout: left panel, table, sidebar */
 .top-row {
     display: flex;
     align-items: flex-start;
@@ -12,7 +12,7 @@ body {
     gap: 50px;
 }
 
-/* Left panel: Add Expense + Set Budget buttons stacked */
+/* Left panel: Add Expense + Set Budget */
 .left-panel {
     display: flex;
     flex-direction: column;
@@ -20,7 +20,7 @@ body {
     min-width: 200px;
 }
 
-/* Center: table */
+/* Table in center */
 .table-container {
     flex: 1;
     display: flex;
@@ -28,7 +28,6 @@ body {
     align-items: center;
 }
 
-/* Table styling */
 #submittedExpenses {
     border-collapse: collapse;
     width: 100%;
@@ -50,7 +49,7 @@ body {
     background-color: #f9f9f9;
 }
 
-/* Right: Category totals sidebar */
+/* Right panel: budget + category totals */
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -58,7 +57,14 @@ body {
     min-width: 200px;
 }
 
-/* Inputs and dropdown */
+/* Budget display */
+#budgetDisplay {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+/* Inputs and dropdowns */
 #expenseContainer,
 #budgetContainer {
     margin-top: 10px;
@@ -86,7 +92,7 @@ button {
     margin-bottom: 10px;
 }
 
-/* Category totals */
+/* Category totals styling */
 #categoryTotals {
     font-weight: bold;
     margin-top: 20px;
