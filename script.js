@@ -87,23 +87,27 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- Set Budget button ---
     if (setBudgetBtn) {
         setBudgetBtn.addEventListener("click", () => {
-            budgetContainer.innerHTML = "";
+            budgetContainer.innerHTML = ""; // clear any previous input
 
+            // Create budget input
             const input = document.createElement("input");
             input.type = "number";
             input.step = "0.01";
             input.id = "budgetInput";
             input.placeholder = "Enter budget amount";
 
+            // Create submit button
             const submitBtn = document.createElement("button");
             submitBtn.textContent = "Submit Budget";
 
+            // Append input and submit button
             budgetContainer.appendChild(input);
-            budgetContainer.appendChild(document.createElement("br"));
+            budgetContainer.appendChild(document.createElement("br")); // ensures button is under input
             budgetContainer.appendChild(submitBtn);
 
             input.focus();
 
+            // Handle budget submission
             submitBtn.addEventListener("click", () => {
                 const budget = parseFloat(input.value);
                 if (isNaN(budget) || budget <= 0) {
@@ -111,9 +115,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                // Update budget display above category totals
-                budgetDisplay.textContent = `Budget: ${budget.toFixed(2)}`;
+                // Update the display element with the new budget
+                if (budgetDisplay) {
+                    budgetDisplay.textContent = `Budget: ${budget.toFixed(2)}`;
+                }
 
+                // Clear the input after submission
                 budgetContainer.innerHTML = "";
             });
         });
