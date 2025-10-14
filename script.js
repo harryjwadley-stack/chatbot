@@ -7,8 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const setBudgetBtn = document.getElementById("setBudgetBtn");
     const budgetContainer = document.getElementById("budgetContainer");
     const budgetDisplay = document.getElementById("budgetDisplay");
+    const budgetRemainingDiv = document.getElementById("budgetRemaining"); // NEW
 
     let purchaseCount = 0;
+    let currentBudget = 0; // track current budget
 
     const categoryTotals = {
         "Groceries": 0,
@@ -16,6 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
         "Treat": 0,
         "Unexpected": 0
     };
+
+    // Function to update Budget Remaining
+    function updateBudgetRemaining() {
+        const totalSpent = Object.values(categoryTotals).reduce((sum, val) => sum + val, 0);
+        const remaining = currentBudget - totalSpent;
+        budgetRemainingDiv.textContent = `Budget Remaining: ${remaining.toFixed(2)}`;
+    }
 
     // --- Add Expense button ---
     addBtn.addEventListener("click", () => {
@@ -80,6 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 Unexpected: ${categoryTotals["Unexpected"].toFixed(2)}
             `;
 
+            // Update Budget Remaining
+            updateBudgetRemaining();
+
             container.innerHTML = "";
         });
     });
@@ -124,14 +136,16 @@ document.addEventListener("DOMContentLoaded", () => {
                         return;
                     }
 
+                    currentBudget = budget;
                     budgetDisplay.textContent = `Budget: ${budget.toFixed(2)}`;
+                    updateBudgetRemaining();
                     budgetContainer.innerHTML = "";
                 });
             }
 
             // --- Calculate workflow ---
             function showCalculatedInput() {
-                budgetContainer.innerHTML = ""; // remove the two buttons
+                budgetContainer.innerHTML = "";
 
                 const labels = ["Income", "Rent", "Car Payments", "Bills", "Other"];
                 const inputs = {};
@@ -169,12 +183,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
 
                     const budget = income - (rent + car + bills + other);
+                    currentBudget = budget;
                     budgetDisplay.textContent = `Budget: ${budget.toFixed(2)}`;
+                    updateBudgetRemaining();
                     budgetContainer.innerHTML = "";
                 });
             }
 
-            // Event listeners for the two buttons
             manualBtn.addEventListener("click", showManualInput);
             calculateBtn.addEventListener("click", showCalculatedInput);
         });
