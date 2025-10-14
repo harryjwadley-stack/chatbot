@@ -4,17 +4,56 @@ body {
     margin: 0;
 }
 
-/* Main flex container: table + sidebar */
-.main-container {
+/* Top container: Add Expense left, Category totals right */
+.top-container {
     display: flex;
-    align-items: flex-start; /* keep sidebar at top */
-    justify-content: center;
-    gap: 50px; /* space between table and sidebar */
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+/* Add Expense section */
+.add-expense-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Sidebar: Category totals */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 200px;
+}
+
+/* Inputs and dropdown styling */
+#expenseContainer {
+    margin-top: 10px;
+}
+
+#expenseInput {
+    padding: 8px;
+    font-size: 16px;
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+#expenseSelect {
+    padding: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 /* Table styling */
 .table-container {
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,42 +80,7 @@ body {
     background-color: #f9f9f9;
 }
 
-/* Sidebar styling */
-.sidebar {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    min-width: 250px;
-}
-
-/* Inputs and dropdown */
-#expenseContainer {
-    margin-top: 20px;
-}
-
-#expenseInput {
-    padding: 8px;
-    font-size: 16px;
-    width: 150px;
-    margin-bottom: 10px;
-}
-
-#expenseSelect {
-    padding: 5px;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-/* Buttons */
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
-/* Category totals */
+/* Category totals styling */
 #categoryTotals {
-    margin-top: 20px;
     font-weight: bold;
 }
