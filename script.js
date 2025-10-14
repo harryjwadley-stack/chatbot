@@ -148,7 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 input.step = "0.01";
                 input.id = "allowanceInput";
                 input.placeholder = "Enter Allowance amount";
-                inputEl.value=0;
 
                 const submitBtn = document.createElement("button");
                 submitBtn.textContent = "Submit Allowance";
