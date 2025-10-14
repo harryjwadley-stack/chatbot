@@ -4,13 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const submittedTableBody = document.getElementById("submittedExpenses").querySelector("tbody");
     const totalsDiv = document.getElementById("categoryTotals");
 
-    const setBudgetBtn = document.getElementById("setBudgetBtn");
-    const budgetContainer = document.getElementById("budgetContainer");
-    const budgetDisplay = document.getElementById("budgetDisplay");
-    const budgetRemainingDiv = document.getElementById("budgetRemaining"); // NEW
+    const setAllowanceBtn = document.getElementById("setAllowanceBtn");
+    const AllowanceContainer = document.getElementById("AllowanceContainer");
+    const AllowanceDisplay = document.getElementById("AllowanceDisplay");
+    const AllowanceRemainingDiv = document.getElementById("AllowanceRemaining"); // NEW
 
     let purchaseCount = 0;
-    let currentBudget = 0; // track current budget
+    let currentAllowance = 0; // track current Allowance
 
     const categoryTotals = {
         "Groceries": 0,
@@ -19,11 +19,11 @@ document.addEventListener("DOMContentLoaded", () => {
         "Unexpected": 0
     };
 
-    // Function to update Budget Remaining
-    function updateBudgetRemaining() {
+    // Function to update Allowance Remaining
+    function updateAllowanceRemaining() {
         const totalSpent = Object.values(categoryTotals).reduce((sum, val) => sum + val, 0);
-        const remaining = currentBudget - totalSpent;
-        budgetRemainingDiv.textContent = `Budget Remaining: ${remaining.toFixed(2)}`;
+        const remaining = currentAllowance - totalSpent;
+        AllowanceRemainingDiv.textContent = `Allowance Remaining: ${remaining.toFixed(2)}`;
     }
 
     // --- Add Expense button ---
@@ -89,17 +89,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 Unexpected: ${categoryTotals["Unexpected"].toFixed(2)}
             `;
 
-            // Update Budget Remaining
-            updateBudgetRemaining();
+            // Update Allowance Remaining
+            updateAllowanceRemaining();
 
             container.innerHTML = "";
         });
     });
 
-    // --- Set Budget button ---
-    if (setBudgetBtn) {
-        setBudgetBtn.addEventListener("click", () => {
-            budgetContainer.innerHTML = ""; // clear previous inputs
+    // --- Set Allowance button ---
+    if (setAllowanceBtn) {
+        setAllowanceBtn.addEventListener("click", () => {
+            AllowanceContainer.innerHTML = ""; // clear previous inputs
 
             // Create "Manual" and "Calculate" buttons
             const manualBtn = document.createElement("button");
@@ -107,45 +107,45 @@ document.addEventListener("DOMContentLoaded", () => {
             const calculateBtn = document.createElement("button");
             calculateBtn.textContent = "Calculate";
 
-            budgetContainer.appendChild(manualBtn);
-            budgetContainer.appendChild(calculateBtn);
+            AllowanceContainer.appendChild(manualBtn);
+            AllowanceContainer.appendChild(calculateBtn);
 
             // --- Manual workflow ---
             function showManualInput() {
-                budgetContainer.innerHTML = ""; // remove the two buttons
+                AllowanceContainer.innerHTML = ""; // remove the two buttons
 
                 const input = document.createElement("input");
                 input.type = "number";
                 input.step = "0.01";
-                input.id = "budgetInput";
-                input.placeholder = "Enter budget amount";
+                input.id = "AllowanceInput";
+                input.placeholder = "Enter Allowance amount";
 
                 const submitBtn = document.createElement("button");
-                submitBtn.textContent = "Submit Budget";
+                submitBtn.textContent = "Submit Allowance";
 
-                budgetContainer.appendChild(input);
-                budgetContainer.appendChild(document.createElement("br"));
-                budgetContainer.appendChild(submitBtn);
+                AllowanceContainer.appendChild(input);
+                AllowanceContainer.appendChild(document.createElement("br"));
+                AllowanceContainer.appendChild(submitBtn);
 
                 input.focus();
 
                 submitBtn.addEventListener("click", () => {
-                    const budget = parseFloat(input.value);
-                    if (isNaN(budget) || budget <= 0) {
-                        alert("Please enter a valid budget.");
+                    const Allowance = parseFloat(input.value);
+                    if (isNaN(Allowance) || Allowance <= 0) {
+                        alert("Please enter a valid Allowance.");
                         return;
                     }
 
-                    currentBudget = budget;
-                    budgetDisplay.textContent = `Budget: ${budget.toFixed(2)}`;
-                    updateBudgetRemaining();
-                    budgetContainer.innerHTML = "";
+                    currentAllowance = Allowance;
+                    AllowanceDisplay.textContent = `Allowance: ${Allowance.toFixed(2)}`;
+                    updateAllowanceRemaining();
+                    AllowanceContainer.innerHTML = "";
                 });
             }
 
             // --- Calculate workflow ---
             function showCalculatedInput() {
-                budgetContainer.innerHTML = "";
+                AllowanceContainer.innerHTML = "";
 
                 const labels = ["Income", "Rent", "Car Payments", "Bills", "Other"];
                 const inputs = {};
@@ -160,15 +160,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     inputEl.style.marginBottom = "5px";
                     inputEl.style.display = "block";
 
-                    budgetContainer.appendChild(labelEl);
-                    budgetContainer.appendChild(inputEl);
+                    AllowanceContainer.appendChild(labelEl);
+                    AllowanceContainer.appendChild(inputEl);
 
                     inputs[label] = inputEl;
                 });
 
                 const submitBtn = document.createElement("button");
-                submitBtn.textContent = "Submit Budget";
-                budgetContainer.appendChild(submitBtn);
+                submitBtn.textContent = "Submit Allowance";
+                AllowanceContainer.appendChild(submitBtn);
 
                 submitBtn.addEventListener("click", () => {
                     const income = parseFloat(inputs["Income"].value);
@@ -182,11 +182,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         return;
                     }
 
-                    const budget = income - (rent + car + bills + other);
-                    currentBudget = budget;
-                    budgetDisplay.textContent = `Budget: ${budget.toFixed(2)}`;
-                    updateBudgetRemaining();
-                    budgetContainer.innerHTML = "";
+                    const Allowance = income - (rent + car + bills + other);
+                    currentAllowance = Allowance;
+                    AllowanceDisplay.textContent = `Allowance: ${Allowance.toFixed(2)}`;
+                    updateAllowanceRemaining();
+                    AllowanceContainer.innerHTML = "";
                 });
             }
 

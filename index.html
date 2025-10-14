@@ -10,13 +10,13 @@
     <h1>SavR</h1>
 
     <div class="top-row">
-        <!-- Left panel: Add Expense + Set Budget -->
+        <!-- Left panel: Add Expense + Set Allowance -->
         <div class="left-panel">
             <button id="addExpenseBtn">Add Expense</button>
             <div id="expenseContainer"></div> <!-- dynamic input + dropdown + submit -->
 
-            <button id="setBudgetBtn">Set Budget</button>
-            <div id="budgetContainer"></div> <!-- dynamic budget input + submit -->
+            <button id="setAllowanceBtn">Set Allowance</button>
+            <div id="AllowanceContainer"></div> <!-- dynamic Allowance input + submit -->
         </div>
 
         <!-- Center: Submitted Expenses Table -->
@@ -36,9 +36,14 @@
             </table>
         </div>
 
-        <!-- Right panel: Budget + Category Totals -->
         <div class="sidebar">
-            <div id="budgetDisplay">Budget: 0.00</div>
+            <!-- Top: Allowance -->
+            <div id="allowanceDisplay">Allowance: 0.00</div>
+
+            <!-- Middle: Allowance Remaining -->
+            <div id="allowanceRemaining">Allowance Remaining: 0.00</div>
+
+            <!-- Bottom: Category Totals -->
             <h2>Category Totals</h2>
             <div id="categoryTotals">
                 Groceries: 0<br>
@@ -46,11 +51,8 @@
                 Treat: 0<br>
                 Unexpected: 0
             </div>
-            <div id="budgetRemaining">Budget Remaining: 0.00</div>
         </div>
-
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
