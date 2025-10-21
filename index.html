@@ -39,6 +39,13 @@
 
         <!-- Right sidebar: Allowance and totals -->
         <div class="sidebar">
+            <div id="monthControls">
+                <button id="prevMonthBtn" type="button">◀</button>
+                <select id="monthSelect"></select>
+                <select id="yearSelect"></select>
+                <button id="nextMonthBtn" type="button">▶</button>
+            </div>
+
             <h3>Allowance Info</h3>
             <div id="allowanceDisplay">Allowance: 0.00</div>
             <div id="allowanceRemaining">Allowance Remaining: 0.00</div>
@@ -54,14 +61,6 @@
             <!-- Pie chart for category breakdown -->
             <canvas id="categoryChart" width="200" height="200"></canvas>
         </div>
-        
-        <div id="monthControls" style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-            <button id="prevMonthBtn" type="button">◀</button>
-            <select id="monthSelect"></select>
-            <select id="yearSelect"></select>
-            <button id="nextMonthBtn" type="button">▶</button>
-        </div>
-
     </div>
 
     <!-- Chart.js CDN -->

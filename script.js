@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const allowanceDisplay = document.getElementById("allowanceDisplay");
   const allowanceRemainingDiv = document.getElementById("allowanceRemaining");
 
-  // Month controls
+  // Month controls (now in sidebar)
   const prevBtn = document.getElementById("prevMonthBtn");
   const nextBtn = document.getElementById("nextMonthBtn");
   const monthSelect = document.getElementById("monthSelect");
@@ -41,41 +41,49 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ===== Storage & month state =====
-  const STORAGE_KEY = "savr-monthly-state-v1";
-
-  function yyyymmKey(y, mIndex) {
-    // mIndex: 0..11
-    return `${y}-${String(mIndex + 1).padStart(2, "0")}`;
-  }
+  // ===== Storage & state =====
+  const STATE_KEY = "savr-monthly-state-v1";
+  const SETTINGS_KEY = "savr-settings-v1"; // holds global allowance
 
   // monthlyState shape:
   // {
   //   "2025-01": {
-  //     allowance: number,
   //     expenses: Array<{id:number, amount:number, category:string}>,
   //     categoryTotals: {Groceries:number, Social:number, Treat:number, Unexpected:number},
   //     purchaseCount: number
   //   },
   //   ...
   // }
-  let monthlyState = loadState();
+  let monthlyState = loadJSON(STATE_KEY) || {};
+  let settings = loadJSON(SETTINGS_KEY) || { allowance: 0 };
+
+  function saveState() { saveJSON(STATE_KEY, monthlyState); }
+  function saveSettings() { saveJSON(SETTINGS_KEY, settings); }
+
+  function loadJSON(key) {
+    try { return JSON.parse(localStorage.getItem(key)); }
+    catch { return null; }
+  }
+  function saveJSON(key, val) {
+    localStorage.setItem(key, JSON.stringify(val));
+  }
+
+  // (Optional light migration: if older months stored "allowance", ignore it)
+  Object.keys(monthlyState).forEach(k => {
+    if (monthlyState[k] && typeof monthlyState[k].allowance !== "undefined") {
+      delete monthlyState[k].allowance;
+    }
+  });
+
+  function yyyymmKey(y, mIndex) {
+    return `${y}-${String(mIndex + 1).padStart(2, "0")}`;
+  }
+
   let currentYear, currentMonthIndex; // 0..11
 
-  function loadState() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-    } catch {
-      return {};
-    }
-  }
-  function saveState() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(monthlyState));
-  }
   function ensureMonth(key) {
     if (!monthlyState[key]) {
       monthlyState[key] = {
-        allowance: 0,
         expenses: [],
         categoryTotals: { Groceries: 0, Social: 0, Treat: 0, Unexpected: 0 },
         purchaseCount: 0
@@ -90,43 +98,41 @@ document.addEventListener("DOMContentLoaded", () => {
     return ensureMonth(currentKey());
   }
 
-  // ===== Init month pickers =====
+  // ===== Init month pickers (in sidebar) =====
   (function initMonthYearPickers() {
-    if (!monthSelect || !yearSelect) return; // safety if controls not present
-
     const now = new Date();
     currentYear = now.getFullYear();
     currentMonthIndex = now.getMonth();
 
-    // Months
-    monthNames.forEach((name, i) => {
-      const opt = document.createElement("option");
-      opt.value = i;
-      opt.textContent = name;
-      monthSelect.appendChild(opt);
-    });
-
-    // Years (±3 years)
-    const startYear = currentYear - 3;
-    const endYear   = currentYear + 3;
-    for (let y = startYear; y <= endYear; y++) {
-      const opt = document.createElement("option");
-      opt.value = y;
-      opt.textContent = y;
-      yearSelect.appendChild(opt);
+    if (monthSelect) {
+      monthNames.forEach((name, i) => {
+        const opt = document.createElement("option");
+        opt.value = i;
+        opt.textContent = name;
+        monthSelect.appendChild(opt);
+      });
+      monthSelect.value = currentMonthIndex;
+      monthSelect.addEventListener("change", () => {
+        currentMonthIndex = Number(monthSelect.value);
+        renderForCurrentMonth();
+      });
     }
 
-    monthSelect.value = currentMonthIndex;
-    yearSelect.value = currentYear;
-
-    monthSelect.addEventListener("change", () => {
-      currentMonthIndex = Number(monthSelect.value);
-      renderForCurrentMonth();
-    });
-    yearSelect.addEventListener("change", () => {
-      currentYear = Number(yearSelect.value);
-      renderForCurrentMonth();
-    });
+    if (yearSelect) {
+      const startYear = currentYear - 3;
+      const endYear   = currentYear + 3;
+      for (let y = startYear; y <= endYear; y++) {
+        const opt = document.createElement("option");
+        opt.value = y;
+        opt.textContent = y;
+        yearSelect.appendChild(opt);
+      }
+      yearSelect.value = currentYear;
+      yearSelect.addEventListener("change", () => {
+        currentYear = Number(yearSelect.value);
+        renderForCurrentMonth();
+      });
+    }
 
     if (prevBtn) {
       prevBtn.addEventListener("click", () => {
@@ -155,18 +161,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })();
 
-  // If controls were missing, still set sensible defaults
-  if (currentYear === undefined || currentMonthIndex === undefined) {
-    const now = new Date();
-    currentYear = now.getFullYear();
-    currentMonthIndex = now.getMonth();
-  }
-
-  // ===== Render helpers =====
+  // ===== Render helpers (now use GLOBAL allowance) =====
   function updateAllowanceRemaining() {
     const data = getMonthData();
     const totalSpent = Object.values(data.categoryTotals).reduce((sum, val) => sum + val, 0);
-    const remaining = data.allowance - totalSpent;
+    const remaining = (settings.allowance || 0) - totalSpent;
     allowanceRemainingDiv.textContent = `Allowance Remaining: ${remaining.toFixed(2)}`;
   }
 
@@ -184,10 +183,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderForCurrentMonth() {
     const data = getMonthData();
 
-    // Allowance display
-    allowanceDisplay.textContent = `Allowance: ${data.allowance.toFixed(2)}`;
+    // Show global allowance
+    const globalAllowance = Number(settings.allowance) || 0;
+    allowanceDisplay.textContent = `Allowance: ${globalAllowance.toFixed(2)}`;
 
-    // Table
+    // Rebuild table
     submittedTableBody.innerHTML = "";
     data.expenses.forEach((e, idx) => {
       const row = document.createElement("tr");
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updatePieChart();
   }
 
-  // ===== Add Expense =====
+  // ===== Add Expense (per-month; allowance is global) =====
   if (addBtn) {
     addBtn.addEventListener("click", () => {
       container.innerHTML = "";
@@ -266,12 +266,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ===== Set Allowance (Manual / Calculate) =====
+  // ===== Set Allowance (GLOBAL now) =====
   if (setAllowanceBtn) {
     setAllowanceBtn.addEventListener("click", () => {
       allowanceContainer.innerHTML = "";
 
-      // Buttons
       const manualBtn = document.createElement("button");
       manualBtn.type = "button";
       manualBtn.textContent = "Manual";
@@ -289,14 +288,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const input = document.createElement("input");
         input.type = "number";
         input.step = "0.01";
-        input.min = "0"; // allow 0
+        input.min = "0";
         input.id = "allowanceInput";
-        input.placeholder = "Enter Allowance amount";
-        input.value = 0;
+        input.placeholder = "Enter Global Allowance amount";
+        input.value = settings.allowance || 0;
 
         const submitBtn = document.createElement("button");
         submitBtn.type = "button";
-        submitBtn.textContent = "Submit Allowance";
+        submitBtn.textContent = "Set Global Allowance";
 
         allowanceContainer.appendChild(input);
         allowanceContainer.appendChild(document.createElement("br"));
@@ -314,10 +313,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
           }
 
-          const data = getMonthData();
-          data.allowance = allowance;
-
-          saveState();
+          settings.allowance = allowance;
+          saveSettings();
           renderForCurrentMonth();
           allowanceContainer.innerHTML = "";
         });
@@ -349,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const submitBtn = document.createElement("button");
         submitBtn.type = "button";
-        submitBtn.textContent = "Submit Allowance";
+        submitBtn.textContent = "Set Global Allowance";
         allowanceContainer.appendChild(submitBtn);
 
         submitBtn.addEventListener("click", (event) => {
@@ -365,10 +362,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const allowance = income - (rent + car + bills + savings + other);
 
-          const data = getMonthData();
-          data.allowance = allowance;
-
-          saveState();
+          settings.allowance = allowance;
+          saveSettings();
           renderForCurrentMonth();
           allowanceContainer.innerHTML = "";
         });
