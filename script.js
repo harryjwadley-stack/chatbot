@@ -127,100 +127,110 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- Set Allowance ---
     if (setAllowanceBtn) {
-        setAllowanceBtn.addEventListener("click", () => {
+    setAllowanceBtn.addEventListener("click", () => {
+        allowanceContainer.innerHTML = "";
+
+        // Create Manual & Calculate buttons
+        const manualBtn = document.createElement("button");
+        manualBtn.type = "button";               // <-- important
+        manualBtn.textContent = "Manual";
+
+        const calculateBtn = document.createElement("button");
+        calculateBtn.type = "button";            // <-- important
+        calculateBtn.textContent = "Calculate";
+
+        allowanceContainer.appendChild(manualBtn);
+        allowanceContainer.appendChild(calculateBtn);
+
+        function showManualInput() {
+        allowanceContainer.innerHTML = "";
+
+        const input = document.createElement("input");
+        input.type = "number";
+        input.step = "0.01";
+        input.min = "0";                       // <-- allow 0 in UI
+        input.id = "allowanceInput";
+        input.placeholder = "Enter Allowance amount";
+        input.value = 0;                       // default 0
+
+        const submitBtn = document.createElement("button");
+        submitBtn.type = "button";             // <-- important
+        submitBtn.textContent = "Submit Allowance";
+
+        allowanceContainer.appendChild(input);
+        allowanceContainer.appendChild(document.createElement("br"));
+        allowanceContainer.appendChild(submitBtn);
+
+        input.focus();
+
+        submitBtn.addEventListener("click", (event) => {
+            // Defensive: no default submit/bubbling
+            event.preventDefault();
+            event.stopPropagation();
+
+            const allowance = parseFloat(input.value);
+            if (isNaN(allowance)) {
+            alert("Please enter a valid allowance (0 or more).");
+            return;
+            }
+            // 0 is valid — no extra check needed
+            currentAllowance = allowance;
+            allowanceDisplay.textContent = `Allowance: ${allowance.toFixed(2)}`;
+            updateAllowanceRemaining();
             allowanceContainer.innerHTML = "";
-
-            // Create Manual & Calculate buttons
-            const manualBtn = document.createElement("button");
-            manualBtn.textContent = "Manual";
-            const calculateBtn = document.createElement("button");
-            calculateBtn.textContent = "Calculate";
-
-            allowanceContainer.appendChild(manualBtn);
-            allowanceContainer.appendChild(calculateBtn);
-
-            function showManualInput() {
-                allowanceContainer.innerHTML = "";
-
-                const input = document.createElement("input");
-                input.type = "number";
-                input.step = "0.01";
-                input.id = "allowanceInput";
-                input.placeholder = "Enter Allowance amount";
-                input.value = 0; // default 0
-
-                const submitBtn = document.createElement("button");
-                submitBtn.textContent = "Submit Allowance";
-
-                allowanceContainer.appendChild(input);
-                allowanceContainer.appendChild(document.createElement("br"));
-                allowanceContainer.appendChild(submitBtn);
-
-                input.focus();
-
-                submitBtn.addEventListener("click", (event) => {
-                    event.preventDefault();  // <-- prevent default behavior
-                    event.stopPropagation(); // <-- stop bubbling
-
-                    const allowance = parseFloat(input.value);
-                    if (isNaN(allowance)) {
-                        alert("Please enter a valid allowance (0 or more).");
-                        return;
-                    }
-
-                    currentAllowance = allowance;
-                    allowanceDisplay.textContent = `Allowance: ${allowance.toFixed(2)}`;
-                    updateAllowanceRemaining();
-                    allowanceContainer.innerHTML = "";
-                });
-            }
-
-            // --- Calculate workflow ---
-            function showCalculatedInput() {
-                allowanceContainer.innerHTML = "";
-
-                const labels = ["Income", "Rent", "Car Payments", "Bills", "Ideal Savings", "Other"];
-                const inputs = {};
-
-                labels.forEach(label => {
-                    const labelEl = document.createElement("label");
-                    labelEl.textContent = `${label}: `;
-                    const inputEl = document.createElement("input");
-                    inputEl.type = "number";
-                    inputEl.step = "0.01";
-                    inputEl.placeholder = label;
-                    inputEl.style.display = "block";
-                    inputEl.style.marginBottom = "5px";
-                    inputEl.value=0;
-
-                    allowanceContainer.appendChild(labelEl);
-                    allowanceContainer.appendChild(inputEl);
-
-                    inputs[label] = inputEl;
-                });
-
-                const submitBtn = document.createElement("button");
-                submitBtn.textContent = "Submit Allowance";
-                allowanceContainer.appendChild(submitBtn);
-
-                submitBtn.addEventListener("click", () => {
-                    const income = parseFloat(inputs["Income"].value) || 0;
-                    const rent = parseFloat(inputs["Rent"].value) || 0;
-                    const car = parseFloat(inputs["Car Payments"].value) || 0;
-                    const bills = parseFloat(inputs["Bills"].value) || 0;
-                    const savings = parseFloat(inputs["Ideal Savings"].value) || 0;
-                    const other = parseFloat(inputs["Other"].value) || 0;
-
-                    const allowance = income - (rent + car + bills + savings + other);
-                    currentAllowance = allowance;
-                    allowanceDisplay.textContent = `Allowance: ${allowance.toFixed(2)}`;
-                    updateAllowanceRemaining();
-                    allowanceContainer.innerHTML = "";
-                });
-            }
-
-            manualBtn.addEventListener("click", showManualInput);
-            calculateBtn.addEventListener("click", showCalculatedInput);
         });
+        }
+
+        function showCalculatedInput() {
+        allowanceContainer.innerHTML = "";
+
+        const labels = ["Income", "Rent", "Car Payments", "Bills", "Ideal Savings", "Other"];
+        const inputs = {};
+
+        labels.forEach(label => {
+            const labelEl = document.createElement("label");
+            labelEl.textContent = `${label}: `;
+            const inputEl = document.createElement("input");
+            inputEl.type = "number";
+            inputEl.step = "0.01";
+            inputEl.min = "0";                   // <-- allow 0 in UI
+            inputEl.placeholder = label;
+            inputEl.style.display = "block";
+            inputEl.style.marginBottom = "5px";
+            inputEl.value = 0;
+
+            allowanceContainer.appendChild(labelEl);
+            allowanceContainer.appendChild(inputEl);
+
+            inputs[label] = inputEl;
+        });
+
+        const submitBtn = document.createElement("button");
+        submitBtn.type = "button";             // <-- important
+        submitBtn.textContent = "Submit Allowance";
+        allowanceContainer.appendChild(submitBtn);
+
+        submitBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const income  = parseFloat(inputs["Income"].value) || 0;
+            const rent    = parseFloat(inputs["Rent"].value) || 0;
+            const car     = parseFloat(inputs["Car Payments"].value) || 0;
+            const bills   = parseFloat(inputs["Bills"].value) || 0;
+            const savings = parseFloat(inputs["Ideal Savings"].value) || 0;
+            const other   = parseFloat(inputs["Other"].value) || 0;
+
+            const allowance = income - (rent + car + bills + savings + other);
+            currentAllowance = allowance;
+            allowanceDisplay.textContent = `Allowance: ${allowance.toFixed(2)}`;
+            updateAllowanceRemaining();
+            allowanceContainer.innerHTML = "";
+        });
+        }
+
+        manualBtn.addEventListener("click", showManualInput);
+        calculateBtn.addEventListener("click", showCalculatedInput);
+    });
     }
 });
