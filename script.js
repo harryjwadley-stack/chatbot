@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const allowanceDisplay = document.getElementById("allowanceDisplay");
   const allowanceRemainingDiv = document.getElementById("allowanceRemaining");
 
-  // Month controls (now in sidebar)
+  // Month controls (works wherever #monthControls sits)
   const prevBtn = document.getElementById("prevMonthBtn");
   const nextBtn = document.getElementById("nextMonthBtn");
   const monthSelect = document.getElementById("monthSelect");
@@ -47,12 +47,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // monthlyState shape:
   // {
-  //   "2025-01": {
+  //   "YYYY-MM": {
   //     expenses: Array<{id:number, amount:number, category:string}>,
   //     categoryTotals: {Groceries:number, Social:number, Treat:number, Unexpected:number},
   //     purchaseCount: number
-  //   },
-  //   ...
+  //   }
   // }
   let monthlyState = loadJSON(STATE_KEY) || {};
   let settings = loadJSON(SETTINGS_KEY) || { allowance: 0 };
@@ -68,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem(key, JSON.stringify(val));
   }
 
-  // (Optional light migration: if older months stored "allowance", ignore it)
+  // Light migration: remove any old per-month "allowance"
   Object.keys(monthlyState).forEach(k => {
     if (monthlyState[k] && typeof monthlyState[k].allowance !== "undefined") {
       delete monthlyState[k].allowance;
@@ -98,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return ensureMonth(currentKey());
   }
 
-  // ===== Init month pickers (in sidebar) =====
+  // ===== Init month pickers =====
   (function initMonthYearPickers() {
     const now = new Date();
     currentYear = now.getFullYear();
@@ -161,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })();
 
-  // ===== Render helpers (now use GLOBAL allowance) =====
+  // ===== Render helpers (global allowance) =====
   function updateAllowanceRemaining() {
     const data = getMonthData();
     const totalSpent = Object.values(data.categoryTotals).reduce((sum, val) => sum + val, 0);
@@ -183,7 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderForCurrentMonth() {
     const data = getMonthData();
 
-    // Show global allowance
     const globalAllowance = Number(settings.allowance) || 0;
     allowanceDisplay.textContent = `Allowance: ${globalAllowance.toFixed(2)}`;
 
@@ -203,70 +201,105 @@ document.addEventListener("DOMContentLoaded", () => {
       Unexpected: ${data.categoryTotals.Unexpected.toFixed(2)}
     `;
 
-    // Remaining + chart
     updateAllowanceRemaining();
     updatePieChart();
   }
 
-  // ===== Add Expense (per-month; allowance is global) =====
+  // ===== Inject modal HTML if missing =====
+  function ensureExpenseModal() {
+    let overlay = document.getElementById("expenseModalOverlay");
+    if (overlay) return overlay;
+
+    const tpl = document.createElement("div");
+    tpl.innerHTML = `
+      <div id="expenseModalOverlay" style="display:none; position:fixed; inset:0; align-items:center; justify-content:center; background:rgba(0,0,0,0.45); z-index:9999;">
+        <div class="expense-modal" style="width:min(92vw,420px); background:#fff; border-radius:12px; padding:18px 16px; box-shadow:0 10px 30px rgba(0,0,0,0.2); display:flex; flex-direction:column; gap:10px;">
+          <h3 style="margin:0 0 6px 0;">Add Expense</h3>
+
+          <label for="modalExpenseAmount" style="font-size:14px; color:#333;">Amount</label>
+          <input id="modalExpenseAmount" type="number" step="0.01" min="0.01" placeholder="Enter amount" style="padding:8px; font-size:16px; width:100%; box-sizing:border-box;" />
+
+          <label for="modalExpenseCategory" style="font-size:14px; color:#333;">Category</label>
+          <select id="modalExpenseCategory" style="padding:8px; font-size:16px; width:100%; box-sizing:border-box;">
+            <option value="Select">Select</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Social">Social</option>
+            <option value="Treat">Treat</option>
+            <option value="Unexpected">Unexpected</option>
+          </select>
+
+          <div class="modal-actions" style="display:flex; justify-content:flex-end; gap:10px; margin-top:6px;">
+            <button id="modalCancelBtn" type="button">Cancel</button>
+            <button id="modalSubmitBtn" type="button">Submit</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(tpl.firstElementChild);
+    return document.getElementById("expenseModalOverlay");
+  }
+
+  // ===== Modal wiring =====
+  const modalOverlay = ensureExpenseModal();
+  const modalAmount  = () => document.getElementById("modalExpenseAmount");
+  const modalCat     = () => document.getElementById("modalExpenseCategory");
+  const modalSubmit  = () => document.getElementById("modalSubmitBtn");
+  const modalCancel  = () => document.getElementById("modalCancelBtn");
+
+  function openExpenseModal() {
+    modalAmount().value = "";
+    modalCat().value = "Select";
+    modalOverlay.style.display = "flex";
+    setTimeout(() => modalAmount().focus(), 0);
+  }
+  function closeExpenseModal() {
+    modalOverlay.style.display = "none";
+  }
+
+  // Close on backdrop click
+  modalOverlay.addEventListener("click", (e) => {
+    if (e.target === modalOverlay) closeExpenseModal();
+  });
+  // Close on Esc
+  document.addEventListener("keydown", (e) => {
+    if (modalOverlay.style.display === "flex" && e.key === "Escape") closeExpenseModal();
+  });
+  // Cancel
+  modalCancel().addEventListener("click", closeExpenseModal);
+  // Submit (save expense)
+  modalSubmit().addEventListener("click", () => {
+    const amount = parseFloat(modalAmount().value);
+    const category = modalCat().value;
+
+    if (isNaN(amount) || amount <= 0) {
+      alert("Please enter a valid amount.");
+      modalAmount().focus();
+      return;
+    }
+    if (!["Groceries","Social","Treat","Unexpected"].includes(category)) {
+      alert("Please select a valid category.");
+      modalCat().focus();
+      return;
+    }
+
+    const data = getMonthData();
+    data.purchaseCount += 1;
+    data.expenses.push({ id: data.purchaseCount, amount, category });
+    data.categoryTotals[category] += amount;
+
+    saveState();
+    renderForCurrentMonth();
+    closeExpenseModal();
+  });
+
+  // ===== Add Expense button opens modal =====
   if (addBtn) {
     addBtn.addEventListener("click", () => {
-      container.innerHTML = "";
-
-      const input = document.createElement("input");
-      input.type = "number";
-      input.step = "0.01";
-      input.min = "0.01";
-      input.id = "expenseInput";
-      input.placeholder = "Enter amount";
-
-      const select = document.createElement("select");
-      select.id = "expenseSelect";
-      ["Select", "Groceries", "Social", "Treat", "Unexpected"].forEach(opt => {
-        const optionEl = document.createElement("option");
-        optionEl.value = opt;
-        optionEl.textContent = opt;
-        select.appendChild(optionEl);
-      });
-
-      const submitBtn = document.createElement("button");
-      submitBtn.type = "button";
-      submitBtn.textContent = "Submit";
-
-      container.appendChild(input);
-      container.appendChild(document.createElement("br"));
-      container.appendChild(select);
-      container.appendChild(document.createElement("br"));
-      container.appendChild(submitBtn);
-
-      input.focus();
-
-      submitBtn.addEventListener("click", () => {
-        const amount = parseFloat(input.value);
-        const category = select.value;
-
-        if (isNaN(amount) || amount <= 0) {
-          alert("Please enter a valid amount.");
-          return;
-        }
-        if (!["Groceries", "Social", "Treat", "Unexpected"].includes(category)) {
-          alert("Please select a valid category.");
-          return;
-        }
-
-        const data = getMonthData();
-        data.purchaseCount += 1;
-        data.expenses.push({ id: data.purchaseCount, amount, category });
-        data.categoryTotals[category] += amount;
-
-        saveState();
-        renderForCurrentMonth();
-        container.innerHTML = "";
-      });
+      openExpenseModal();
     });
   }
 
-  // ===== Set Allowance (GLOBAL now) =====
+  // ===== Set Allowance (GLOBAL) =====
   if (setAllowanceBtn) {
     setAllowanceBtn.addEventListener("click", () => {
       allowanceContainer.innerHTML = "";
