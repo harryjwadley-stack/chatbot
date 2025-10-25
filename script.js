@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("expenseContainer");
   const submittedTableBody = document.getElementById("submittedExpenses").querySelector("tbody");
   const totalsDiv = document.getElementById("categoryTotals");
+  const clearAllBtn = document.getElementById("clearAllBtn");
 
   const setAllowanceBtn = document.getElementById("setAllowanceBtn");
   const allowanceContainer = document.getElementById("allowanceContainer");
@@ -202,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updatePieChart();
   }
 
-  // ===== Row delete handler (event delegation) =====
+  // ===== Delete single expense =====
   submittedTableBody.addEventListener("click", (evt) => {
     const btn = evt.target.closest(".del-expense");
     if (!btn) return;
@@ -212,10 +213,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const i = data.expenses.findIndex(x => x.id === id);
     if (i === -1) return;
 
-    // Optional confirm
-    // if (!confirm("Delete this expense?")) return;
-
-    // Adjust totals then remove
     const exp = data.expenses[i];
     data.categoryTotals[exp.category] = Math.max(
       0,
@@ -227,46 +224,38 @@ document.addEventListener("DOMContentLoaded", () => {
     renderForCurrentMonth();
   });
 
+  // ===== Clear All =====
+  if (clearAllBtn) {
+    clearAllBtn.addEventListener("click", () => {
+      if (!confirm("Are you sure you want to delete all expenses for this month?")) return;
+
+      const data = getMonthData();
+      data.expenses = [];
+      data.categoryTotals = { Groceries: 0, Social: 0, Treat: 0, Unexpected: 0 };
+      data.purchaseCount = 0;
+
+      saveState();
+      renderForCurrentMonth();
+    });
+  }
+
   // ===== Add Expense modal =====
   function ensureExpenseModal() {
     let overlay = document.getElementById("expenseModalOverlay");
-    if (overlay) {
-      // Self-heal: ensure the Card dropdown exists even if HTML was older
-      const cat = document.getElementById("modalExpenseCategory");
-      let card = document.getElementById("modalExpenseCard");
-      if (cat && !card) {
-        const cardLabel = document.createElement("label");
-        cardLabel.setAttribute("for", "modalExpenseCard");
-        cardLabel.style.fontSize = "14px";
-        cardLabel.style.color = "#333";
-        cardLabel.textContent = "Select card";
+    if (overlay) return overlay;
 
-        const cardSelect = document.createElement("select");
-        cardSelect.id = "modalExpenseCard";
-        cardSelect.style.cssText = "padding:8px;font-size:16px;width:100%;box-sizing:border-box;";
-        cardSelect.innerHTML = `
-          <option value="Credit">Credit</option>
-          <option value="Debit">Debit</option>
-        `;
-
-        cat.insertAdjacentElement("afterend", cardSelect);
-        cardSelect.insertAdjacentElement("beforebegin", cardLabel);
-      }
-      return overlay;
-    }
-
-    // If no modal exists in HTML, inject the full one
+    // If no modal exists in HTML, inject the full, modern one:
     const tpl = document.createElement("div");
     tpl.innerHTML = `
       <div id="expenseModalOverlay" style="display:none; position:fixed; inset:0; align-items:center; justify-content:center; background:rgba(0,0,0,0.45); z-index:9999;">
         <div class="expense-modal" style="width:min(92vw,420px); background:#fff; border-radius:12px; padding:18px 16px; box-shadow:0 10px 30px rgba(0,0,0,0.2); display:flex; flex-direction:column; gap:10px;">
           <h3 style="margin:0 0 6px 0;">Add Expense</h3>
 
-          <label for="modalExpenseAmount" style="font-size:14px; color:#333;">Amount</label>
-          <input id="modalExpenseAmount" type="number" step="0.01" min="0.01" placeholder="Enter amount" style="padding:8px; font-size:16px; width:100%; box-sizing:border-box;" />
+          <label for="modalExpenseAmount">Amount</label>
+          <input id="modalExpenseAmount" type="number" step="0.01" min="0.01" placeholder="Enter amount" />
 
-          <label for="modalExpenseCategory" style="font-size:14px; color:#333;">Category</label>
-          <select id="modalExpenseCategory" style="padding:8px; font-size:16px; width:100%; box-sizing:border-box;">
+          <label for="modalExpenseCategory">Category</label>
+          <select id="modalExpenseCategory">
             <option value="Select">Select</option>
             <option value="Groceries">Groceries</option>
             <option value="Social">Social</option>
@@ -274,13 +263,13 @@ document.addEventListener("DOMContentLoaded", () => {
             <option value="Unexpected">Unexpected</option>
           </select>
 
-          <label for="modalExpenseCard" style="font-size:14px; color:#333;">Select card</label>
-          <select id="modalExpenseCard" style="padding:8px; font-size:16px; width:100%; box-sizing:border-box;">
+          <label for="modalExpenseCard">Select card</label>
+          <select id="modalExpenseCard">
             <option value="Credit">Credit</option>
             <option value="Debit">Debit</option>
           </select>
 
-          <div class="modal-actions" style="display:flex; justify-content:flex-end; gap:10px; margin-top:6px;">
+          <div class="modal-actions">
             <button id="modalCancelBtn" type="button">Cancel</button>
             <button id="modalSubmitBtn" type="button">Submit</button>
           </div>
@@ -354,6 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function ensureAllowanceModal() {
     let overlay = document.getElementById("allowanceModalOverlay");
     if (overlay) return overlay;
+
     const tpl = document.createElement("div");
     tpl.innerHTML = `
       <div id="allowanceModalOverlay" style="display:none; position:fixed; inset:0; align-items:center; justify-content:center; background:rgba(0,0,0,0.45); z-index:9999;">
@@ -471,7 +461,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderForCurrentMonth();
       closeAllowanceModal();
     };
-   }
+  }
 
   // ===== Set Allowance button → open modal =====
   if (setAllowanceBtn) {

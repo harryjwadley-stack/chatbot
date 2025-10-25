@@ -28,21 +28,24 @@
     </div>
 
     <!-- Center: Submitted Expenses Table -->
-  <table id="submittedExpenses">
-    <thead>
-      <tr>
-        <th>Purchase #</th>
-        <th>Amount</th>
-        <th>Category</th>
-        <th>Card</th>
-        <th>Actions</th> <!-- NEW -->
-      </tr>
-    </thead>
-    <tbody>
-      <!-- JS appends rows here -->
-    </tbody>
-  </table>
+    <div class="table-container">
+      <h3>Submitted Expenses</h3>
+      <table id="submittedExpenses">
+        <thead>
+          <tr>
+            <th>Purchase #</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Card</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
 
+      <!-- Clear All button -->
+      <button id="clearAllBtn" style="margin-top:10px;">Clear All</button>
+    </div>
 
     <!-- Right sidebar: Allowance and totals -->
     <div class="sidebar">
@@ -80,7 +83,7 @@
         <option value="Unexpected">Unexpected</option>
       </select>
 
-      <!-- NEW: Select card -->
+      <!-- Card picker -->
       <label for="modalExpenseCard">Select card</label>
       <select id="modalExpenseCard">
         <option value="Credit">Credit</option>
@@ -96,6 +99,6 @@
 
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>
