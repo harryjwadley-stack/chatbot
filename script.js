@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updatePieChart();
   }
 
-  // ===== Inject modal HTML if missing =====
+  // ===== Inject Add Expense modal HTML if missing =====
   function ensureExpenseModal() {
     let overlay = document.getElementById("expenseModalOverlay");
     if (overlay) return overlay;
@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return document.getElementById("expenseModalOverlay");
   }
 
-  // ===== Modal wiring =====
+  // ===== Modal wiring (Add Expense) =====
   const modalOverlay = ensureExpenseModal();
   const modalAmount  = () => document.getElementById("modalExpenseAmount");
   const modalCat     = () => document.getElementById("modalExpenseCategory");
@@ -299,111 +299,150 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ===== Set Allowance (GLOBAL) =====
+  // ===== Allowance Modal (GLOBAL) =====
+  function ensureAllowanceModal() {
+    let overlay = document.getElementById("allowanceModalOverlay");
+    if (overlay) return overlay;
+
+    const tpl = document.createElement("div");
+    tpl.innerHTML = `
+      <div id="allowanceModalOverlay" style="display:none; position:fixed; inset:0; align-items:center; justify-content:center; background:rgba(0,0,0,0.45); z-index:9999;">
+        <div class="expense-modal" style="width:min(92vw,460px); background:#fff; border-radius:12px; padding:18px 16px; box-shadow:0 10px 30px rgba(0,0,0,0.2); display:flex; flex-direction:column; gap:10px;">
+          <h3 style="margin:0 0 6px 0;">Set Global Allowance</h3>
+
+          <div id="allowanceModalStage">
+            <!-- Stage content injected here -->
+          </div>
+
+          <div class="modal-actions" style="display:flex; justify-content:flex-end; gap:10px; margin-top:6px;">
+            <button id="allowanceModalCancelBtn" type="button">Cancel</button>
+            <button id="allowanceModalBackBtn" type="button" style="display:none;">Back</button>
+            <button id="allowanceModalSubmitBtn" type="button" style="display:none;">Submit</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(tpl.firstElementChild);
+    return document.getElementById("allowanceModalOverlay");
+  }
+
+  const allowanceModalOverlay = ensureAllowanceModal();
+  const allowanceStage     = () => document.getElementById("allowanceModalStage");
+  const allowanceCancelBtn = () => document.getElementById("allowanceModalCancelBtn");
+  const allowanceBackBtn   = () => document.getElementById("allowanceModalBackBtn");
+  const allowanceSubmitBtn = () => document.getElementById("allowanceModalSubmitBtn");
+
+  let allowanceFlow = { mode: null }; // "manual" | "calc"
+
+  function openAllowanceModal() {
+    showAllowanceChoice();
+    allowanceModalOverlay.style.display = "flex";
+  }
+  function closeAllowanceModal() {
+    allowanceModalOverlay.style.display = "none";
+    allowanceFlow = { mode: null };
+  }
+
+  // Backdrop click & Esc
+  allowanceModalOverlay.addEventListener("click", (e) => {
+    if (e.target === allowanceModalOverlay) closeAllowanceModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (allowanceModalOverlay.style.display === "flex" && e.key === "Escape") closeAllowanceModal();
+  });
+  allowanceCancelBtn().addEventListener("click", closeAllowanceModal);
+
+  // Stage 1: Mode chooser
+  function showAllowanceChoice() {
+    allowanceFlow.mode = null;
+    allowanceBackBtn().style.display = "none";
+    allowanceSubmitBtn().style.display = "none";
+    allowanceStage().innerHTML = `
+      <p>How would you like to set your global allowance?</p>
+      <div style="display:flex; gap:10px;">
+        <button id="allowanceManualBtn" type="button">Manual</button>
+        <button id="allowanceCalcBtn" type="button">Calculate</button>
+      </div>
+    `;
+    document.getElementById("allowanceManualBtn").addEventListener("click", showAllowanceManual);
+    document.getElementById("allowanceCalcBtn").addEventListener("click", showAllowanceCalc);
+  }
+
+  // Stage 2a: Manual input
+  function showAllowanceManual() {
+    allowanceFlow.mode = "manual";
+    allowanceBackBtn().style.display = "inline-block";
+    allowanceSubmitBtn().style.display = "inline-block";
+    allowanceSubmitBtn().textContent = "Set Global Allowance";
+
+    allowanceStage().innerHTML = `
+      <label for="allowanceManualInput" style="font-size:14px; color:#333;">Allowance Amount</label>
+      <input id="allowanceManualInput" type="number" step="0.01" min="0" placeholder="Enter amount"
+             style="padding:8px; font-size:16px; width:100%; box-sizing:border-box;" />
+    `;
+    const inp = document.getElementById("allowanceManualInput");
+    inp.value = Number(settings.allowance || 0);
+    inp.focus({ preventScroll:true });
+
+    allowanceBackBtn().onclick = showAllowanceChoice;
+    allowanceSubmitBtn().onclick = () => {
+      const val = parseFloat(inp.value);
+      if (isNaN(val) || val < 0) {
+        alert("Please enter a valid allowance (0 or more).");
+        inp.focus();
+        return;
+      }
+      settings.allowance = val;
+      saveSettings();
+      renderForCurrentMonth();
+      closeAllowanceModal();
+    };
+  }
+
+  // Stage 2b: Calculated input
+  function showAllowanceCalc() {
+    allowanceFlow.mode = "calc";
+    allowanceBackBtn().style.display = "inline-block";
+    allowanceSubmitBtn().style.display = "inline-block";
+    allowanceSubmitBtn().textContent = "Set Global Allowance";
+
+    allowanceStage().innerHTML = `
+      <p>Allowance = Income − (Rent + Car + Bills + Savings + Other)</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        ${["Income","Rent","Car Payments","Bills","Ideal Savings","Other"].map(label => `
+          <label style="display:flex; flex-direction:column; gap:6px;">
+            <span style="font-size:14px; color:#333;">${label}</span>
+            <input type="number" step="0.01" min="0" placeholder="${label}" data-allowance="${label}"
+                   style="padding:8px; font-size:16px; width:100%; box-sizing:border-box;" value="0" />
+          </label>
+        `).join("")}
+      </div>
+    `;
+
+    allowanceBackBtn().onclick = showAllowanceChoice;
+    allowanceSubmitBtn().onclick = () => {
+      const vals = {};
+      document.querySelectorAll('[data-allowance]').forEach(el => {
+        vals[el.dataset.allowance] = parseFloat(el.value) || 0;
+      });
+
+      const income  = vals["Income"];
+      const costs   = vals["Rent"] + vals["Car Payments"] + vals["Bills"] + vals["Ideal Savings"] + vals["Other"];
+      const result  = income - costs;
+
+      settings.allowance = result;
+      saveSettings();
+      renderForCurrentMonth();
+      closeAllowanceModal();
+    };
+  }
+
+  // ===== Set Allowance button → open modal =====
   if (setAllowanceBtn) {
     setAllowanceBtn.addEventListener("click", () => {
-      allowanceContainer.innerHTML = "";
-
-      const manualBtn = document.createElement("button");
-      manualBtn.type = "button";
-      manualBtn.textContent = "Manual";
-
-      const calculateBtn = document.createElement("button");
-      calculateBtn.type = "button";
-      calculateBtn.textContent = "Calculate";
-
-      allowanceContainer.appendChild(manualBtn);
-      allowanceContainer.appendChild(calculateBtn);
-
-      function showManualInput() {
-        allowanceContainer.innerHTML = "";
-
-        const input = document.createElement("input");
-        input.type = "number";
-        input.step = "0.01";
-        input.min = "0";
-        input.id = "allowanceInput";
-        input.placeholder = "Enter Global Allowance amount";
-        input.value = settings.allowance || 0;
-
-        const submitBtn = document.createElement("button");
-        submitBtn.type = "button";
-        submitBtn.textContent = "Set Global Allowance";
-
-        allowanceContainer.appendChild(input);
-        allowanceContainer.appendChild(document.createElement("br"));
-        allowanceContainer.appendChild(submitBtn);
-
-        input.focus();
-
-        submitBtn.addEventListener("click", (event) => {
-          event.preventDefault();
-          event.stopPropagation();
-
-          const allowance = parseFloat(input.value);
-          if (isNaN(allowance)) {
-            alert("Please enter a valid allowance (0 or more).");
-            return;
-          }
-
-          settings.allowance = allowance;
-          saveSettings();
-          renderForCurrentMonth();
-          allowanceContainer.innerHTML = "";
-        });
-      }
-
-      function showCalculatedInput() {
-        allowanceContainer.innerHTML = "";
-
-        const labels = ["Income", "Rent", "Car Payments", "Bills", "Ideal Savings", "Other"];
-        const inputs = {};
-
-        labels.forEach(label => {
-          const labelEl = document.createElement("label");
-          labelEl.textContent = `${label}: `;
-          const inputEl = document.createElement("input");
-          inputEl.type = "number";
-          inputEl.step = "0.01";
-          inputEl.min = "0";
-          inputEl.placeholder = label;
-          inputEl.style.display = "block";
-          inputEl.style.marginBottom = "5px";
-          inputEl.value = 0;
-
-          allowanceContainer.appendChild(labelEl);
-          allowanceContainer.appendChild(inputEl);
-
-          inputs[label] = inputEl;
-        });
-
-        const submitBtn = document.createElement("button");
-        submitBtn.type = "button";
-        submitBtn.textContent = "Set Global Allowance";
-        allowanceContainer.appendChild(submitBtn);
-
-        submitBtn.addEventListener("click", (event) => {
-          event.preventDefault();
-          event.stopPropagation();
-
-          const income  = parseFloat(inputs["Income"].value) || 0;
-          const rent    = parseFloat(inputs["Rent"].value) || 0;
-          const car     = parseFloat(inputs["Car Payments"].value) || 0;
-          const bills   = parseFloat(inputs["Bills"].value) || 0;
-          const savings = parseFloat(inputs["Ideal Savings"].value) || 0;
-          const other   = parseFloat(inputs["Other"].value) || 0;
-
-          const allowance = income - (rent + car + bills + savings + other);
-
-          settings.allowance = allowance;
-          saveSettings();
-          renderForCurrentMonth();
-          allowanceContainer.innerHTML = "";
-        });
-      }
-
-      manualBtn.addEventListener("click", showManualInput);
-      calculateBtn.addEventListener("click", showCalculatedInput);
+      // Clear any leftover inline UI (from older versions) and open modal
+      if (allowanceContainer) allowanceContainer.innerHTML = "";
+      openAllowanceModal();
     });
   }
 
