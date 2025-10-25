@@ -1,100 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SavR - Add Expense</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SavR - Add Expense</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>SavR</h1>
-    <h3>how the fuck am i poor again? where the fuck is my money going? help pls...</h3>
-        
-    <div id="monthControls" style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <button id="prevMonthBtn" type="button">◀</button>
-        <select id="monthSelect"></select>
-        <select id="yearSelect"></select>
-        <button id="nextMonthBtn" type="button">▶</button>
+  <h1>SavR</h1>
+  <h3>how the fuck am i poor again? where the fuck is my money going? help pls...</h3>
+
+  <div id="monthControls" style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+    <button id="prevMonthBtn" type="button">◀</button>
+    <select id="monthSelect"></select>
+    <select id="yearSelect"></select>
+    <button id="nextMonthBtn" type="button">▶</button>
+  </div>
+
+  <div class="top-row">
+    <!-- Left panel: Add Expense + Set Allowance -->
+    <div class="left-panel">
+      <button id="setAllowanceBtn">Set Allowance</button>
+      <div id="allowanceContainer"></div>
+
+      <button id="addExpenseBtn">Add Expense</button>
+      <div id="expenseContainer"></div>
     </div>
 
-    <div class="top-row">
-        <!-- Left panel: Add Expense + Set Allowance -->
-        <div class="left-panel">
-            <button id="setAllowanceBtn">Set Allowance</button>
-            <div id="allowanceContainer"></div> <!-- dynamic Allowance input + submit -->
-
-            <button id="addExpenseBtn">Add Expense</button>
-            <div id="expenseContainer"></div> <!-- dynamic input + dropdown + submit -->
-        </div>
-
-        <!-- Center: Submitted Expenses Table -->
-        <div class="table-container">
-            <h3>Submitted Expenses</h3>
-            <table id="submittedExpenses">
-                <thead>
-                    <tr>
-                        <th>Purchase #</th>
-                        <th>Amount</th>
-                        <th>Category</th>
-      <th>Card</th> <!-- NEW -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- JS appends rows here -->
-                </tbody>
-            </table>
-        </div>
-        <table id="submittedExpenses">
-
-        <!-- Right sidebar: Allowance and totals -->
-        <div class="sidebar">
-            
-
-            <h3>Allowance Info</h3>
-            <div id="allowanceDisplay">Allowance: 0.00</div>
-            <div id="allowanceRemaining">Allowance Remaining: 0.00</div>
-
-            <h3>Category Totals</h3>
-            <div id="categoryTotals">
-                Groceries: 0<br>
-                Social: 0<br>
-                Treat: 0<br>
-                Unexpected: 0
-            </div>
-
-            <!-- Pie chart for category breakdown -->
-            <canvas id="categoryChart" width="200" height="200"></canvas>
-        </div>
-
+    <!-- Center: Submitted Expenses Table -->
+    <div class="table-container">
+      <h3>Submitted Expenses</h3>
+      <table id="submittedExpenses">
+        <thead>
+          <tr>
+            <th>Purchase #</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Card</th> <!-- NEW -->
+          </tr>
+        </thead>
+        <tbody>
+          <!-- JS appends rows here -->
+        </tbody>
+      </table>
     </div>
 
-    <!-- Add Expense Modal -->
-    <div id="expenseModalOverlay" style="display:none;">
+    <!-- Right sidebar: Allowance and totals -->
+    <div class="sidebar">
+      <h3>Allowance Info</h3>
+      <div id="allowanceDisplay">Allowance: 0.00</div>
+      <div id="allowanceRemaining">Allowance Remaining: 0.00</div>
+
+      <h3>Category Totals</h3>
+      <div id="categoryTotals">
+        Groceries: 0<br />
+        Social: 0<br />
+        Treat: 0<br />
+        Unexpected: 0
+      </div>
+
+      <!-- Pie chart for category breakdown -->
+      <canvas id="categoryChart" width="200" height="200"></canvas>
+    </div>
+  </div>
+
+  <!-- Add Expense Modal -->
+  <div id="expenseModalOverlay" style="display:none;">
     <div class="expense-modal">
-        <h3>Add Expense</h3>
+      <h3>Add Expense</h3>
 
-        <label for="modalExpenseAmount">Amount</label>
-        <input id="modalExpenseAmount" type="number" step="0.01" min="0.01" placeholder="Enter amount" />
+      <label for="modalExpenseAmount">Amount</label>
+      <input id="modalExpenseAmount" type="number" step="0.01" min="0.01" placeholder="Enter amount" />
 
-        <label for="modalExpenseCategory">Category</label>
-        <select id="modalExpenseCategory">
+      <label for="modalExpenseCategory">Category</label>
+      <select id="modalExpenseCategory">
         <option value="Select">Select</option>
         <option value="Groceries">Groceries</option>
         <option value="Social">Social</option>
         <option value="Treat">Treat</option>
         <option value="Unexpected">Unexpected</option>
-        </select>
+      </select>
 
-        <div class="modal-actions">
+      <!-- NEW: Select card -->
+      <label for="modalExpenseCard">Select card</label>
+      <select id="modalExpenseCard">
+        <option value="Credit">Credit</option>
+        <option value="Debit">Debit</option>
+      </select>
+
+      <div class="modal-actions">
         <button id="modalCancelBtn" type="button">Cancel</button>
         <button id="modalSubmitBtn" type="button">Submit</button>
-        </div>
+      </div>
     </div>
-    </div>
+  </div>
 
-
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
