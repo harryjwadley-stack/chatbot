@@ -204,8 +204,33 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===== Add Expense modal =====
   function ensureExpenseModal() {
     let overlay = document.getElementById("expenseModalOverlay");
-    if (overlay) return overlay;
+    if (overlay) {
+      // Make sure the Card dropdown exists even if the HTML was older
+      const cat = document.getElementById("modalExpenseCategory");
+      let card = document.getElementById("modalExpenseCard");
+      if (cat && !card) {
+        const cardLabel = document.createElement("label");
+        cardLabel.setAttribute("for", "modalExpenseCard");
+        cardLabel.style.fontSize = "14px";
+        cardLabel.style.color = "#333";
+        cardLabel.textContent = "Select card";
 
+        const cardSelect = document.createElement("select");
+        cardSelect.id = "modalExpenseCard";
+        cardSelect.style.cssText = "padding:8px;font-size:16px;width:100%;box-sizing:border-box;";
+        cardSelect.innerHTML = `
+          <option value="Credit">Credit</option>
+          <option value="Debit">Debit</option>
+        `;
+
+        // Insert immediately after the Category <select>
+        cat.insertAdjacentElement("afterend", cardSelect);
+        cardSelect.insertAdjacentElement("beforebegin", cardLabel);
+      }
+      return overlay;
+    }
+
+    // If no modal exists in HTML, inject the full, modern one:
     const tpl = document.createElement("div");
     tpl.innerHTML = `
       <div id="expenseModalOverlay" style="display:none; position:fixed; inset:0; align-items:center; justify-content:center; background:rgba(0,0,0,0.45); z-index:9999;">
