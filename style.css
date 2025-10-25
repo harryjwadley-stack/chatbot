@@ -172,3 +172,11 @@ button {
   gap: 10px;
   margin-top: 6px;
 }
+
+.del-expense {
+  padding: 6px 12px;
+}
+.del-expense:hover {
+  background: #ffecec;
+  border-color: #ffbdbd;
+}

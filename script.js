@@ -185,6 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <td>${e.amount.toFixed(2)}</td>
         <td>${e.category}</td>
         <td>${e.card || "-"}</td>
+        <td><button class="del-expense" data-id="${e.id}">Delete</button></td>
       `;
       submittedTableBody.appendChild(row);
     });
@@ -201,11 +202,36 @@ document.addEventListener("DOMContentLoaded", () => {
     updatePieChart();
   }
 
+  // ===== Row delete handler (event delegation) =====
+  submittedTableBody.addEventListener("click", (evt) => {
+    const btn = evt.target.closest(".del-expense");
+    if (!btn) return;
+
+    const id = Number(btn.dataset.id);
+    const data = getMonthData();
+    const i = data.expenses.findIndex(x => x.id === id);
+    if (i === -1) return;
+
+    // Optional confirm
+    // if (!confirm("Delete this expense?")) return;
+
+    // Adjust totals then remove
+    const exp = data.expenses[i];
+    data.categoryTotals[exp.category] = Math.max(
+      0,
+      (data.categoryTotals[exp.category] || 0) - (exp.amount || 0)
+    );
+    data.expenses.splice(i, 1);
+
+    saveState();
+    renderForCurrentMonth();
+  });
+
   // ===== Add Expense modal =====
   function ensureExpenseModal() {
     let overlay = document.getElementById("expenseModalOverlay");
     if (overlay) {
-      // Make sure the Card dropdown exists even if the HTML was older
+      // Self-heal: ensure the Card dropdown exists even if HTML was older
       const cat = document.getElementById("modalExpenseCategory");
       let card = document.getElementById("modalExpenseCard");
       if (cat && !card) {
@@ -223,14 +249,13 @@ document.addEventListener("DOMContentLoaded", () => {
           <option value="Debit">Debit</option>
         `;
 
-        // Insert immediately after the Category <select>
         cat.insertAdjacentElement("afterend", cardSelect);
         cardSelect.insertAdjacentElement("beforebegin", cardLabel);
       }
       return overlay;
     }
 
-    // If no modal exists in HTML, inject the full, modern one:
+    // If no modal exists in HTML, inject the full one
     const tpl = document.createElement("div");
     tpl.innerHTML = `
       <div id="expenseModalOverlay" style="display:none; position:fixed; inset:0; align-items:center; justify-content:center; background:rgba(0,0,0,0.45); z-index:9999;">
@@ -325,7 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (addBtn) addBtn.addEventListener("click", openExpenseModal);
 
-  // ===== Allowance Modal (unchanged from previous version) =====
+  // ===== Allowance Modal (unchanged) =====
   function ensureAllowanceModal() {
     let overlay = document.getElementById("allowanceModalOverlay");
     if (overlay) return overlay;
