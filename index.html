@@ -83,12 +83,15 @@
         <option value="Unexpected">Unexpected</option>
       </select>
 
-      <!-- Card picker -->
       <label for="modalExpenseCard">Select card</label>
       <select id="modalExpenseCard">
         <option value="Credit">Credit</option>
         <option value="Debit">Debit</option>
       </select>
+
+      <!-- Details (optional) -->
+      <label for="modalExpenseDetails">Details (optional)</label>
+      <textarea id="modalExpenseDetails" rows="2" placeholder="Enter details..." style="padding:8px;font-size:16px;width:100%;box-sizing:border-box;"></textarea>
 
       <div class="modal-actions">
         <button id="modalCancelBtn" type="button">Cancel</button>
@@ -97,8 +100,19 @@
     </div>
   </div>
 
+  <!-- Details Modal -->
+  <div id="detailsModalOverlay" style="display:none;">
+    <div class="expense-modal">
+      <h3>Expense Details</h3>
+      <div id="detailsModalBody" class="details-text"></div>
+      <div class="modal-actions">
+        <button id="detailsModalCloseBtn" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js?v=7"></script>
+  <script src="script.js?v=8"></script>
 </body>
 </html>
